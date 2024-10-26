@@ -43,7 +43,9 @@ function DataCards({ title, endpoint }) {
             <div
               className="data-wrapper"
               key={item.id}
-              onClick={() => handleClick(item, endpoint.includes("tv") ? "tv" : "movie")}
+              onClick={() =>
+                handleClick(item, endpoint.includes("tv") ? "tv" : "movie")
+              }
             >
               <div className="data">
                 <img

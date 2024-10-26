@@ -9,6 +9,7 @@ function App() {
       <Aside />
       <main>
         <Hero />
+        <DataCards title="Upcoming" endpoint="movie/upcoming" />
         <DataCards title="Popular Movies" endpoint="movie/popular" />
         <DataCards title="Popular TV Shows" endpoint="tv/top_rated" />
         <DataCards title="Top Rated Movies" endpoint="movie/top_rated" />

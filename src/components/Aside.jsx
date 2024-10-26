@@ -1,11 +1,30 @@
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function Aside() {
+    const [searchTerm, setSearchTerm] = useState("");
+    const navigate = useNavigate();
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        if (searchTerm.trim()) {
+            navigate(`/search/movie/${searchTerm}`);
+        }
+    };
 
     return (
         <aside>
             <Link to="/" className="logo">Movies<span>World</span></Link>
-            <input type="search" name="search" id="search" placeholder="Search..." />
+            <form onSubmit={handleSearchSubmit}>
+                <input 
+                    type="search" 
+                    name="search" 
+                    id="search" 
+                    placeholder="Search..." 
+                    value={searchTerm} 
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+            </form>
             <nav>
                 <div className="dropdown">
                     <button className="dropbtn">Movies</button>

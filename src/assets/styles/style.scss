@@ -1,4 +1,4 @@
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
@@ -6,6 +6,8 @@
     text-decoration: none;
     -webkit-tap-highlight-color: transparent;
 }
+
+$font: "Ubuntu", sans-serif;;
 
 html {
     scrollbar-width: .5vw;
@@ -56,31 +58,33 @@ html::-webkit-scrollbar-thumb {
     gap: $gap;
 }
 
-button{
+button {
     background: none;
     border: none;
     cursor: pointer;
     font-size: 1rem;
 }
 
-img{
+img {
     user-select: none;
 }
 
-body{
-    font-family: Arial, Helvetica, sans-serif;
+body {
+    font-family: $font;
     background: #141414;
     color: #fff;
 }
 
-.link, .link:visited{
+.link,
+.link:visited {
     color: #4aa8ff;
-    &:hover{
+
+    &:hover {
         text-decoration: underline;
     }
 }
 
-aside{
+aside {
     background: #000;
     overflow-y: auto;
     width: 300px;
@@ -90,17 +94,19 @@ aside{
     top: 0;
     border-right: 1px solid #333;
     padding: 15px 25px;
-    .logo{
+
+    .logo {
         color: #fff;
         font-size: 2rem;
         padding: 10px 0;
         text-align: start;
-        span{
+
+        span {
             color: #4aa8ff;
         }
     }
 
-    input{
+    input {
         width: 100%;
         padding: 10px;
         font-size: 1rem;
@@ -110,59 +116,67 @@ aside{
         color: #000;
         margin: 15px 0;
         transition: 300ms;
-        &:focus{
+
+        &:focus {
             border: 3px solid #4aa8ff;
             outline: none;
         }
     }
 }
 
-.dropdown{
+.dropdown {
     @include fcs(15px);
     margin: 25px 0;
-    button{
+
+    button {
         cursor: default;
         font-size: 1.3rem;
         font-weight: 900;
         color: #fff;
     }
-    .dropdown-content{
+
+    .dropdown-content {
         @include fcs(10px);
-        a{
+
+        a {
             color: #ddd;
             margin-left: 10px;
             transition: 150ms;
-            &:hover{
+
+            &:hover {
                 color: #777;
             }
         }
     }
 }
 
-main{
+main {
     margin-left: 300px;
-    padding: 15px;
 }
 
-.hero{
+.hero {
     position: relative;
     width: 100%;
     padding: 15px;
     text-align: center;
-    h1{
+
+    h1 {
         font-size: 3rem;
         padding: 15px;
-        span{
+
+        span {
             color: #4aa8ff;
         }
     }
-    .hero-content{
+
+    .hero-content {
         background: #222;
         border-radius: 10px;
         width: 100%;
         height: 500px;
     }
-    &::after{
+
+    &::after {
         content: '';
         background: #141414;
         border-radius: 50px;
@@ -175,11 +189,12 @@ main{
     }
 }
 
-.data-container{
+.data-container {
     @include fs(15px 25px);
     flex-wrap: wrap;
     padding: 15px;
-    .data-wrapper{
+
+    .data-wrapper {
         cursor: pointer;
         position: relative;
         width: 200px;
@@ -187,6 +202,7 @@ main{
         border-radius: 10px;
         overflow: hidden;
         transition: 200ms;
+
         &::before {
             content: "";
             z-index: -1;
@@ -201,10 +217,12 @@ main{
             opacity: 0;
             transition: 200ms;
         }
+
         &:hover::before {
             opacity: 1;
         }
-        .data{
+
+        .data {
             @include fcs(0);
             width: 100%;
             background: #222;
@@ -212,47 +230,49 @@ main{
             overflow: hidden;
             transition: 200ms;
             z-index: 2;
-            img{
+
+            img {
                 width: 100%;
             }
-            h3{
+
+            h3 {
                 text-overflow: ellipsis;
                 text-wrap: nowrap;
                 width: 100%;
                 overflow: hidden;
                 padding: 10px;
             }
-            &:hover{
+
+            &:hover {
                 box-shadow: 0 0 50px #777;
             }
         }
     }
 }
-  
-  @keyframes glowing {
-    0% {
-      transform: rotate(0) scale(1);
-    }
-    50% {
-      transform: rotate(180deg) scale(1.05);
-    }
-    100% {
-      transform: rotate(360deg) scale(1);
-    }
-  }
 
-  .data-page{
+@keyframes glowing {
+    0% {
+        transform: rotate(0) scale(1);
+    }
+
+    50% {
+        transform: rotate(180deg) scale(1.05);
+    }
+
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+.data-page {
     position: relative;
     overflow: hidden;
     @include fcs(15px);
     width: 100%;
     padding: 25px;
     background: #000;
-    border: 1px solid #4aa8ff;
-    border-radius: 10px;
-    padding: 25px;
-    z-index: -1;
-    .data-background{
+    z-index: 1; 
+
+    .data-background {
         content: '';
         position: absolute;
         top: 0;
@@ -260,54 +280,77 @@ main{
         width: 100%;
         height: 100%;
         opacity: .3;
-        z-index: -1;
+        z-index: -1; 
+        pointer-events: none; 
     }
-    h1{
+
+    h1 {
         font-size: 2.8rem;
         font-weight: 400;
-        color: #4aa8ff;
+        color: #fff;
     }
-    .data-info{
+
+    .data-info {
         @include fs(15px);
-        .data-img{
+
+        .data-img {
             @include fcs(15px);
             text-align: start;
-            img{
+
+            img {
                 border-radius: 10px;
                 border: 1px solid #555;
             }
-          }
-          .data-overview{
+        }
+
+        .data-overview {
             @include fcs(15px);
             text-align: start;
-          }
+        }
     }
-  }
+    
+    .trailer {
+        width: 100%;
+        z-index: 2;
 
-  .cast-list{
+        iframe {
+            aspect-ratio: 16/9;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            width: 100%;
+        }
+    }
+}
+
+
+.cast-list {
     @include fs(15px);
     flex-wrap: wrap;
     width: 100%;
-    .actor{
+
+    .actor {
         @include fcs(5px);
         background: #333;
         border-radius: 10px;
         overflow: hidden;
         width: 150px;
-        img{
+
+        img {
             width: 150px;
         }
-        h3{
+
+        h3 {
             color: #4aa8ff;
             font-weight: 400;
             font-size: 1.1rem;
             padding: 5px 5px 0 5px;
             text-overflow: ellipsis;
-                text-wrap: nowrap;
-                width: 100%;
-                overflow: hidden;
+            text-wrap: nowrap;
+            width: 100%;
+            overflow: hidden;
         }
-        h4{
+
+        h4 {
             color: #fff;
             text-overflow: ellipsis;
             text-wrap: nowrap;
@@ -319,45 +362,62 @@ main{
         }
     }
 }
-  
+
+.rating{
+    padding: 15px;
+    @include fc(0);
+    width: 65px;
+    height: 65px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    font-size: 1.3rem;
+}
+
 .skeleton-wrapper {
     width: 200px;
-    height: 330px; 
-    background: transparent; 
+    height: 330px;
+    background: transparent;
     border-radius: 10px;
-    margin: 10px; 
+    margin: 10px;
 }
 
 
-.title{
+.title {
     font-size: 2.5rem;
-    padding: 15px;
-    width: 100%;
-    background: #000;
     color: #4aa8ff;
     margin: 25px 0;
+    padding: 0 15px;
 }
 
-footer{
+.subtitle{
+    font-size: 1.5rem;
+    color: #4aa8ff;
+    font-weight: 600;
+}
+
+footer {
     background: #000;
     width: 100%;
     text-align: center;
     padding: 25px;
-    p{
+
+    p {
         font-size: 1.2rem;
         color: #666;
     }
 }
 
-.error-page{
+.error-page {
     width: 100%;
     height: 100vh;
     @include fcc(25px);
-    h2{
+
+    h2 {
         font-size: 5rem;
         color: #555;
     }
-    p{
+
+    p {
         font-size: 1.3rem;
     }
 }
