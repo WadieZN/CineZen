@@ -1,6 +1,6 @@
 import Aside from "./components/Aside"
 import Hero from "./components/Hero"
-import DataDisplay from "./utils/DataDisplay"
+import DataCards from "./utils/DataCards"
 
 function App() {
 
@@ -9,10 +9,10 @@ function App() {
       <Aside />
       <main>
         <Hero />
-        <DataDisplay title="Popular Movies" endpoint="movie/popular" />
-        <DataDisplay title="Popular TV Shows" endpoint="tv/top_rated" />
-        <DataDisplay title="Top Rated Movies" endpoint="movie/top_rated" />
-        <DataDisplay title="Top Rated Shows" endpoint="tv/top_rated" />
+        <DataCards title="Popular Movies" endpoint="movie/popular" />
+        <DataCards title="Popular TV Shows" endpoint="tv/top_rated" />
+        <DataCards title="Top Rated Movies" endpoint="movie/top_rated" />
+        <DataCards title="Top Rated Shows" endpoint="tv/top_rated" />
         <footer>
           <p>Developed by WadyZen &copy; {new Date().getFullYear()}</p>
         </footer>

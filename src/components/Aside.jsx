@@ -1,8 +1,10 @@
+import { Link } from "react-router-dom";
+
 function Aside() {
 
     return (
         <aside>
-            <h2 className="logo">Movies<span>World</span></h2>
+            <Link to="/" className="logo">Movies<span>World</span></Link>
             <input type="search" name="search" id="search" placeholder="Search..." />
             <nav>
                 <div className="dropdown">
