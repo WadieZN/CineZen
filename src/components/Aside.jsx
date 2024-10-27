@@ -15,7 +15,7 @@ function Aside() {
   return (
     <aside>
       <Link to="/" className="logo">
-        Movies<span>World</span>
+        Cine<span>Zen</span>
       </Link>
       <form onSubmit={handleSearchSubmit}>
         <input
