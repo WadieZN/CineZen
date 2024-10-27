@@ -7,7 +7,8 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-$font: "Ubuntu", sans-serif;;
+$font: "Ubuntu", sans-serif;
+;
 
 html {
     scrollbar-width: .5vw;
@@ -212,7 +213,7 @@ main {
             width: 40%;
             height: 700px;
             background: #4aa8ff;
-            animation: glowing 5s linear infinite;
+            animation: glowing 3s linear infinite;
             transform-origin: center;
             opacity: 0;
             transition: 200ms;
@@ -263,6 +264,7 @@ main {
         transform: rotate(360deg) scale(1);
     }
 }
+
 .data-page {
     position: relative;
     overflow: hidden;
@@ -270,7 +272,7 @@ main {
     width: 100%;
     padding: 25px;
     background: #000;
-    z-index: 1; 
+    z-index: 1;
 
     .data-background {
         content: '';
@@ -280,14 +282,24 @@ main {
         width: 100%;
         height: 100%;
         opacity: .3;
-        z-index: -1; 
-        pointer-events: none; 
+        z-index: -1;
+        pointer-events: none;
     }
 
-    h1 {
-        font-size: 2.8rem;
-        font-weight: 400;
-        color: #fff;
+    .show-title {
+        @include fcs(0);
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 400;
+            color: #fff;
+        }
+
+        h4 {
+            font-weight: 400;
+            color: #888;
+            font-size: 1.2rem;
+        }
     }
 
     .data-info {
@@ -304,11 +316,15 @@ main {
         }
 
         .data-overview {
-            @include fcs(15px);
+            @include fcs(12px);
             text-align: start;
+
+            p {
+                line-height: 1.7rem;
+            }
         }
     }
-    
+
     .trailer {
         width: 100%;
         z-index: 2;
@@ -327,50 +343,92 @@ main {
     @include fs(15px);
     flex-wrap: wrap;
     width: 100%;
+    margin-top: 5px;
 
-    .actor {
-        @include fcs(5px);
-        background: #333;
-        border-radius: 10px;
+    .cast-container {
+        @include fcs(10px);
+    }
+
+    .actor-wrapper {
+        position: relative;
         overflow: hidden;
-        width: 150px;
+        padding: 5px;
+        border-radius: 10px;
+        cursor: pointer;
 
-        img {
+        .actor {
+            @include fcs(5px);
+            background: #333;
+            border-radius: 10px;
+            overflow: hidden;
             width: 150px;
-        }
 
-        h3 {
-            color: #4aa8ff;
-            font-weight: 400;
-            font-size: 1.1rem;
-            padding: 5px 5px 0 5px;
-            text-overflow: ellipsis;
-            text-wrap: nowrap;
-            width: 100%;
-            overflow: hidden;
-        }
+            &::before {
+                content: "";
+                position: absolute;
+                top: -60%;
+                right: 50px;
+                width: 40%;
+                height: 700px;
+                background: #4aa8ff;
+                animation: glowing 3s linear infinite;
+                transform-origin: center;
+                opacity: 0;
+                transition: 200ms;
+                z-index: -1;
+            }
 
-        h4 {
-            color: #fff;
-            text-overflow: ellipsis;
-            text-wrap: nowrap;
-            width: 100%;
-            overflow: hidden;
-            font-size: 1rem;
-            font-weight: 400;
-            padding: 5px 5px 10px 5px;
+            &:hover::before {
+                opacity: 1;
+            }
+
+            &:hover {
+                box-shadow: 0 0 50px #777;
+            }
+
+            img {
+                width: 150px;
+            }
+
+            h3 {
+                color: #4aa8ff;
+                font-weight: 400;
+                font-size: 1.1rem;
+                padding: 5px 5px 0 5px;
+                text-overflow: ellipsis;
+                text-wrap: nowrap;
+                width: 100%;
+                overflow: hidden;
+            }
+
+            h4 {
+                color: #fff;
+                text-overflow: ellipsis;
+                text-wrap: nowrap;
+                width: 100%;
+                overflow: hidden;
+                font-size: 1rem;
+                font-weight: 400;
+                padding: 5px 5px 10px 5px;
+            }
         }
     }
 }
 
-.rating{
-    padding: 15px;
-    @include fc(0);
-    width: 65px;
-    height: 65px;
-    border: 2px solid #ccc;
-    border-radius: 50%;
-    font-size: 1.3rem;
+.genres {
+    padding: 8px 0;
+
+    .genre-tag {
+        padding: 8px 10px;
+        margin-right: 15px;
+        background: hsla(0, 0%, 20%, 0.5);
+        border: 1px solid #fff;
+        border-radius: 50px;
+    }
+}
+
+.rating {
+    font-size: 1.5rem;
 }
 
 .skeleton-wrapper {
@@ -389,10 +447,11 @@ main {
     padding: 0 15px;
 }
 
-.subtitle{
+.subtitle {
     font-size: 1.5rem;
     color: #4aa8ff;
     font-weight: 600;
+    text-transform: uppercase;
 }
 
 footer {

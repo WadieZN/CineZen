@@ -1,9 +1,8 @@
-import Aside from "./components/Aside"
-import Hero from "./components/Hero"
-import DataCards from "./utils/DataCards"
+import Aside from "./components/Aside";
+import Hero from "./components/Hero";
+import DataCards from "./utils/DataCards";
 
 function App() {
-
   return (
     <>
       <Aside />
@@ -19,7 +18,7 @@ function App() {
         </footer>
       </main>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
