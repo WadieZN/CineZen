@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 import noImg from "./../assets/img/no-img.jpg";
 
 function SearchCards({ results, isPending, error }) {

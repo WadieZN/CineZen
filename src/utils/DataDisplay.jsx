@@ -1,9 +1,7 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Aside from "../components/Aside";
 import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 import noImg from "../assets/img/no-img.jpg";
 
 function DataDisplay() {
@@ -248,7 +246,7 @@ function DataDisplay() {
                   ))
               : cast.length > 0 && (
                   <div className="cast-container">
-                    <h2 className="subtitle">Cast</h2>
+                    <h2 className="subtitle">Top Cast</h2>
                     <div className="cast-list">
                       {cast.map((actor) => (
                         <div className="actor-wrapper">

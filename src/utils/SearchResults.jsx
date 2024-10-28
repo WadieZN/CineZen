@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import SearchCards from "./SearchCards";
 import Aside from "../components/Aside";
 import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);

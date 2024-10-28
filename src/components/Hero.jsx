@@ -14,7 +14,6 @@ function Hero() {
         infiniteLoop={true}
         interval={6000}
         transitionTime={500}
-        emulateTouch={true}
         stopOnHover={false}
         showStatus={false}
       >

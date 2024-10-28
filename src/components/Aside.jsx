@@ -28,27 +28,27 @@ function Aside({ onSearch }) {
         <div className="dropdown">
           <button className="dropbtn">Movies</button>
           <div className="dropdown-content">
-            <a href="#">Action</a>
-            <a href="#">Comedy</a>
-            <a href="#">Drama</a>
-            <a href="#">Horror</a>
-            <a href="#">Sci-Fi</a>
+            <Link to="/genre/Action">Action</Link>
+            <Link to="/genre/Comedy">Comedy</Link>
+            <Link to="/genre/Drama">Drama</Link>
+            <Link to="/genre/Horror">Horror</Link>
+            <Link to="/genre/Science Fiction">Sci-Fi</Link>
           </div>
         </div>
         <div className="dropdown">
           <button className="dropbtn">TV Series</button>
           <div className="dropdown-content">
-            <a href="#">Action</a>
-            <a href="#">Comedy</a>
-            <a href="#">Drama</a>
-            <a href="#">Horror</a>
-            <a href="#">Sci-Fi</a>
+            <Link to="/genre/Action">Action</Link>
+            <Link to="/genre/Comedy">Comedy</Link>
+            <Link to="/genre/Drama">Drama</Link>
+            <Link to="/genre/Horror">Horror</Link>
+            <Link to="/genre/Science Fiction">Sci-Fi</Link>
           </div>
         </div>
         <div className="dropdown">
           <button className="dropbtn">People</button>
           <div className="dropdown-content">
-            <a href="#">Popular Actors</a>
+            <Link to="/genre/Popular Actors">Popular Actors</Link>
           </div>
         </div>
       </nav>

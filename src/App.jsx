@@ -9,7 +9,7 @@ function App() {
 
   const handleSearch = (searchTerm) => {
     if (searchTerm.trim()) {
-      navigate(`/search?query=${encodeURIComponent(searchTerm)}`); 
+      navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
     }
   };
 

@@ -1,0 +1,117 @@
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
+import Aside from "../components/Aside";
+
+function GenrePage() {
+  const { genre } = useParams();
+  const [content, setContent] = useState([]);
+  const [isPending, setIsPending] = useState(false);
+  const [error, setError] = useState(null);
+  const [showData, setShowData] = useState(false);
+
+  useEffect(() => {
+    fetchGenreContent(genre);
+  }, [genre]);
+
+  const fetchGenreContent = async (genreName) => {
+    setIsPending(true);
+    setError(null);
+    setShowData(false);
+    try {
+      const apiKey = "9243098c7038ad501a3bbff3589770d7";
+      const genreResponse = await fetch(
+        `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
+      );
+      const { genres } = await genreResponse.json();
+      const genreId = genres.find(
+        (g) => g.name.toLowerCase() === genreName.toLowerCase()
+      )?.id;
+
+      if (!genreId) {
+        throw new Error("Genre not found");
+      }
+
+      const response = await fetch(
+        `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genreId}`
+      );
+      const data = await response.json();
+      setContent(data.results || []);
+
+      setTimeout(() => {
+        setShowData(true);
+      }, 1200);
+    } catch (error) {
+      setError("Failed to fetch content for this genre.");
+    } finally {
+      setIsPending(false);
+    }
+  };
+
+  const navigate = useNavigate();
+
+  function handleClick(item) {
+    const endpointType = item.media_type === "tv" ? "tv" : "movie";
+    navigate(`/${endpointType}/${item.id}`);
+  }
+
+  const handleSearch = (searchTerm) => {
+    if (searchTerm.trim()) {
+      navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
+    }
+  };
+
+  return (
+    <>
+      <Aside onSearch={handleSearch} />
+      <main>
+        <h2 className="title">{genre} Movies</h2>
+        <div className="data-container">
+          {isPending || !showData ? (
+            Array(12)
+              .fill(0)
+              .map((_, index) => (
+                <div key={index} className="skeleton-wrapper">
+                  <Skeleton
+                    height={300}
+                    width={200}
+                    baseColor="#222"
+                    highlightColor="#555"
+                  />
+                  <Skeleton
+                    height={20}
+                    width={200}
+                    baseColor="#222"
+                    highlightColor="#555"
+                    style={{ marginTop: "10px" }}
+                  />
+                </div>
+              ))
+          ) : error ? (
+            <p>{error}</p>
+          ) : (
+            <div className="data-container">
+              {content.map((item) => (
+                <div
+                  className="data-wrapper"
+                  key={item.id}
+                  onClick={() => handleClick(item)}
+                >
+                  <div className="data">
+                    <img
+                      src={`https://image.tmdb.org/t/p/w200${item.poster_path}`}
+                      alt={item.title}
+                    />
+                    <h3>{item.title}</h3>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </main>
+    </>
+  );
+}
+
+export default GenrePage;

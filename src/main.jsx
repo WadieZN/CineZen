@@ -5,7 +5,9 @@ import App from "./App.jsx";
 import ErrorPage from "./components/ErrorPage.jsx";
 import DataDisplay from "./utils/DataDisplay.jsx";
 import SearchResults from "./utils/SearchResults.jsx";
+import GenrePage from "./utils/GenrePage";
 import "./assets/styles/style.scss";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: "/search",
     element: <SearchResults />,
+  },
+  {
+    path: "/genre/:genre",
+    element: <GenrePage />,
   },
 ]);
 
