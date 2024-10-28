@@ -1,11 +1,21 @@
+import React from "react";
 import Aside from "./components/Aside";
 import Hero from "./components/Hero";
 import DataCards from "./utils/DataCards";
+import { useNavigate } from "react-router-dom";
 
 function App() {
+  const navigate = useNavigate();
+
+  const handleSearch = (searchTerm) => {
+    if (searchTerm.trim()) {
+      navigate(`/search?query=${encodeURIComponent(searchTerm)}`); 
+    }
+  };
+
   return (
     <>
-      <Aside />
+      <Aside onSearch={handleSearch} />
       <main>
         <Hero />
         <DataCards title="Upcoming" endpoint="movie/upcoming" />

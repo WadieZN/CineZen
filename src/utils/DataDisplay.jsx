@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Aside from "../components/Aside";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -63,9 +64,17 @@ function DataDisplay() {
     return () => clearTimeout(timer);
   }, [id, endpoint]);
 
+  const navigate = useNavigate();
+
+  const handleSearch = (searchTerm) => {
+    if (searchTerm.trim()) {
+      navigate(`/search?query=${encodeURIComponent(searchTerm)}`);
+    }
+  };
+
   return (
     <>
-      <Aside />
+      <Aside onSearch={handleSearch} />
       <main>
         <div className="data-page">
           <div

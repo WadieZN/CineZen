@@ -1,15 +1,12 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-function Aside() {
+function Aside({ onSearch }) {
   const [searchTerm, setSearchTerm] = useState("");
-  const navigate = useNavigate();
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    if (searchTerm.trim()) {
-      navigate(`/search/movie/${searchTerm}`);
-    }
+    onSearch(searchTerm); 
   };
 
   return (

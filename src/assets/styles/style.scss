@@ -123,6 +123,23 @@ aside {
             outline: none;
         }
     }
+
+    .search-results {
+        background: #222;
+        border: 1px solid #333;
+        position: absolute;
+        width: 100%;
+        div {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+      }
+      
+      
+      .search-results div:hover {
+        background-color: #f0f0f0;
+      }
+      
 }
 
 .dropdown {
@@ -163,6 +180,7 @@ main {
     h1 {
         font-size: 3rem;
         padding: 15px;
+        margin-bottom: 15px;
 
         span {
             color: #4aa8ff;
@@ -175,12 +193,12 @@ main {
         width: 100%;
         border-radius: 10px;
         overflow: hidden;
-        height: 500px;
+        height: 60vh;
 
         .slide {
             position: relative;
             width: 100%;
-            height: 500px;
+            height: 60vh;
             background-position: center;
             background-size: cover;
             background-repeat: no-repeat;

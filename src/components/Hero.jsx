@@ -12,10 +12,11 @@ function Hero() {
         showThumbs={true}
         autoPlay={true}
         infiniteLoop={true}
-        interval={5000}
+        interval={6000}
         transitionTime={500}
         emulateTouch={true}
         stopOnHover={false}
+        showStatus={false}
       >
         <div className="slide s-1">
           <p>
