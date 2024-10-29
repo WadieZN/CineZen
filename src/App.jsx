@@ -20,7 +20,7 @@ function App() {
         <Hero />
         <DataCards title="Upcoming" endpoint="movie/upcoming" />
         <DataCards title="Popular Movies" endpoint="movie/popular" />
-        <DataCards title="Popular TV Shows" endpoint="tv/top_rated" />
+        <DataCards title="Popular TV Shows" endpoint="tv/popular" />
         <DataCards title="Top Rated Movies" endpoint="movie/top_rated" />
         <DataCards title="Top Rated Shows" endpoint="tv/top_rated" />
         <footer>

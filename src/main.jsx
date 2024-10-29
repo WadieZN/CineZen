@@ -8,6 +8,7 @@ import SearchResults from "./utils/SearchResults.jsx";
 import GenrePage from "./utils/GenrePage";
 import "./assets/styles/style.scss";
 import "react-loading-skeleton/dist/skeleton.css";
+import ActorsPage from "./components/ActorsPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -24,8 +25,16 @@ const router = createBrowserRouter([
     element: <SearchResults />,
   },
   {
-    path: "/genre/:genre",
+    path: "/movie/genre/:genre",
     element: <GenrePage />,
+  },
+  {
+    path: "/tv/genre/:genre",
+    element: <GenrePage />,
+  },
+  {
+    path: "/actors",
+    element: <ActorsPage />,
   },
 ]);
 

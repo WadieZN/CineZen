@@ -11,19 +11,23 @@ function GenrePage() {
   const [showData, setShowData] = useState(false);
 
   useEffect(() => {
-    fetchGenreContent(genre);
+    const isMovieGenre = window.location.pathname.includes("/movie");
+    fetchGenreContent(genre, isMovieGenre);
   }, [genre]);
 
-  const fetchGenreContent = async (genreName) => {
+  const fetchGenreContent = async (genreName, isMovieGenre) => {
     setIsPending(true);
     setError(null);
     setShowData(false);
     try {
       const apiKey = "9243098c7038ad501a3bbff3589770d7";
+      const genreType = isMovieGenre ? "movie" : "tv";
+
       const genreResponse = await fetch(
-        `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`
+        `https://api.themoviedb.org/3/genre/${genreType}/list?api_key=${apiKey}&language=en-US`
       );
       const { genres } = await genreResponse.json();
+
       const genreId = genres.find(
         (g) => g.name.toLowerCase() === genreName.toLowerCase()
       )?.id;
@@ -32,8 +36,9 @@ function GenrePage() {
         throw new Error("Genre not found");
       }
 
+      // Fetch content based on genre ID
       const response = await fetch(
-        `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genreId}`
+        `https://api.themoviedb.org/3/discover/${genreType}?api_key=${apiKey}&with_genres=${genreId}`
       );
       const data = await response.json();
       setContent(data.results || []);
@@ -51,7 +56,7 @@ function GenrePage() {
   const navigate = useNavigate();
 
   function handleClick(item) {
-    const endpointType = item.media_type === "tv" ? "tv" : "movie";
+    const endpointType = window.location.pathname.includes("/tv") ? "tv" : "movie";
     navigate(`/${endpointType}/${item.id}`);
   }
 
@@ -65,7 +70,7 @@ function GenrePage() {
     <>
       <Aside onSearch={handleSearch} />
       <main>
-        <h2 className="title">{genre} Movies</h2>
+        <h2 className="title">{genre} {window.location.pathname.includes("/tv") ? "TV Series" : "Movies"}</h2>
         <div className="data-container">
           {isPending || !showData ? (
             Array(12)
@@ -100,9 +105,9 @@ function GenrePage() {
                   <div className="data">
                     <img
                       src={`https://image.tmdb.org/t/p/w200${item.poster_path}`}
-                      alt={item.title}
+                      alt={item.title || item.name}  
                     />
-                    <h3>{item.title}</h3>
+                    <h3>{item.title || item.name}</h3>
                   </div>
                 </div>
               ))}

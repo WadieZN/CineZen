@@ -126,7 +126,8 @@ function DataDisplay() {
                   highlightColor="#333"
                 />
               ) : (
-                <img
+                <div className="data-img-wrapper">
+                  <img
                   src={
                     data.poster_path
                       ? `https://image.tmdb.org/t/p/w400${data.poster_path}`
@@ -134,6 +135,7 @@ function DataDisplay() {
                   }
                   alt={`${data.title || data.name} poster`}
                 />
+                </div>
               )}
             </div>
             <div className="data-overview">
@@ -212,7 +214,7 @@ function DataDisplay() {
                   />
                 ) : (
                   <span>
-                    {data.vote_average.toFixed(1)}{" "}
+                    {data.vote_average.toFixed(1)}
                     <span style={{ fontSize: ".9rem" }}>/ 10</span>
                   </span>
                 )}
@@ -249,8 +251,8 @@ function DataDisplay() {
                     <h2 className="subtitle">Top Cast</h2>
                     <div className="cast-list">
                       {cast.map((actor) => (
-                        <div className="actor-wrapper">
-                          <div key={actor.id} className="actor">
+                        <div key={actor.id} className="actor-wrapper">
+                          <div className="actor">
                             <img
                               src={
                                 actor.profile_path
@@ -259,9 +261,9 @@ function DataDisplay() {
                               }
                               alt={actor.name}
                             />
-                            <h3>{actor.name}</h3>
+                            <h3>{actor.name || "Unknown"}</h3>
                             <h4 className="character-name">
-                              {actor.character}
+                              {actor.character || "Unknown"}
                             </h4>
                           </div>
                         </div>
@@ -282,11 +284,13 @@ function DataDisplay() {
                 highlightColor="#555"
               />
             ) : trailer ? (
-              <iframe
-                src={`https://www.youtube.com/embed/${trailer}?enablejsapi=1`}
-                title="YouTube video player"
-                allowFullScreen
-              ></iframe>
+              <div className="trailer-wrapper">
+                <iframe
+                  src={`https://www.youtube.com/embed/${trailer}?enablejsapi=1`}
+                  title="YouTube video player"
+                  allowFullScreen
+                ></iframe>
+              </div>
             ) : (
               <p>No trailer available for this show.</p>
             )}

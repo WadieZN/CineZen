@@ -4,15 +4,15 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 function Hero() {
   return (
-    <div className="hero">
+    <div className="hero" aria-hidden>
       <h1>
         Explore <span>All</span> the Best Shows <span>in One</span> Spot!
       </h1>
       <Carousel
-        showThumbs={true}
+        showThumbs={false}
         autoPlay={true}
         infiniteLoop={true}
-        interval={6000}
+        interval={7000}
         transitionTime={500}
         stopOnHover={false}
         showStatus={false}
@@ -29,7 +29,7 @@ function Hero() {
           </p>
         </div>
         <div className="slide s-3">
-          <p>Find your next favorite series or show to watch non-stop</p>
+          <p>Find your next favorite movie or show to watch non-stop</p>
         </div>
       </Carousel>
     </div>

@@ -28,27 +28,33 @@ function Aside({ onSearch }) {
         <div className="dropdown">
           <button className="dropbtn">Movies</button>
           <div className="dropdown-content">
-            <Link to="/genre/Action">Action</Link>
-            <Link to="/genre/Comedy">Comedy</Link>
-            <Link to="/genre/Drama">Drama</Link>
-            <Link to="/genre/Horror">Horror</Link>
-            <Link to="/genre/Science Fiction">Sci-Fi</Link>
-          </div>
+            <Link to="/movie/genre/Action">Action</Link>
+            <Link to="/movie/genre/Adventure">Adventure</Link>
+            <Link to="/movie/genre/Animation">Animation</Link>
+            <Link to="/movie/genre/Comedy">Comedy</Link>
+            <Link to="/movie/genre/Drama">Drama</Link>
+            <Link to="/movie/genre/Horror">Horror</Link>
+            <Link to="/movie/genre/Science Fiction">Sci-Fi</Link>
+            <Link to="/movie/genre/Crime">Crime</Link>
+        </div>
         </div>
         <div className="dropdown">
           <button className="dropbtn">TV Series</button>
           <div className="dropdown-content">
-            <Link to="/genre/Action">Action</Link>
-            <Link to="/genre/Comedy">Comedy</Link>
-            <Link to="/genre/Drama">Drama</Link>
-            <Link to="/genre/Horror">Horror</Link>
-            <Link to="/genre/Science Fiction">Sci-Fi</Link>
+            <Link to="/tv/genre/Action & Adventure">Action & Adventure</Link>
+            <Link to="/tv/genre/Animation">Animation</Link>
+            <Link to="/tv/genre/Mystery">Mystery</Link>
+            <Link to="/tv/genre/Comedy">Comedy</Link>
+            <Link to="/tv/genre/Drama">Drama</Link>
+            <Link to="/tv/genre/Kids">Kids</Link>
+            <Link to="/tv/genre/Family">Family</Link>
+            <Link to="/tv/genre/Sci-Fi & Fantasy">Sci-Fi & Fantasy</Link>
           </div>
         </div>
         <div className="dropdown">
           <button className="dropbtn">People</button>
           <div className="dropdown-content">
-            <Link to="/genre/Popular Actors">Popular Actors</Link>
+            <Link to="/ErrorPage">Popular Actors</Link>
           </div>
         </div>
       </nav>
