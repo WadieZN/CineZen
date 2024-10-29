@@ -76,8 +76,8 @@ function SearchResults() {
                   />
                 </div>
               ))
-          ) : error ? (
-            <p>{error}</p>
+          ) : (results.length === 0 || error) ? (
+            <p className="error-text">No results found.</p>
           ) : (
             <SearchCards title="Current Search Results" results={results} />
           )}

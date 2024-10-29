@@ -36,7 +36,6 @@ function GenrePage() {
         throw new Error("Genre not found");
       }
 
-      // Fetch content based on genre ID
       const response = await fetch(
         `https://api.themoviedb.org/3/discover/${genreType}?api_key=${apiKey}&with_genres=${genreId}`
       );

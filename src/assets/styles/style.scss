@@ -8,7 +8,7 @@
 }
 
 $font: "Ubuntu", sans-serif;
-;
+$primary-color: #ffc526;
 
 html {
     scrollbar-width: .5vw;
@@ -66,6 +66,21 @@ html::-webkit-scrollbar-thumb {
     overflow: hidden;
 }
 
+@keyframes glowing {
+    0% {
+        transform: rotate(0) scale(1);
+    }
+
+    50% {
+        transform: rotate(180deg) scale(1.05);
+    }
+
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+
 button {
     background: none;
     border: none;
@@ -85,7 +100,7 @@ body {
 
 .link,
 .link:visited {
-    color: #4aa8ff;
+    color: $primary-color;
 
     &:hover {
         text-decoration: underline;
@@ -112,7 +127,7 @@ aside {
         text-align: center;
 
         span {
-            color: #4aa8ff;
+            color: $primary-color;
         }
     }
 
@@ -121,13 +136,14 @@ aside {
         padding: 10px;
         font-size: 1rem;
         border: 2px solid #888;
+        border-radius: 10px;
         background: #000;
         color: #fff;
         margin-top: 15px;
         transition: 300ms;
 
         &:focus {
-            border: 2px solid #4aa8ff;
+            border: 2px solid $primary-color;
             outline: none;
         }
     }
@@ -192,7 +208,7 @@ main {
         margin-bottom: 15px;
 
         span {
-            color: #4aa8ff;
+            color: $primary-color;
         }
     }
 
@@ -261,7 +277,7 @@ main {
             right: 50px;
             width: 40%;
             height: 700px;
-            background: #4aa8ff;
+            background: $primary-color;
             animation: glowing 3s linear infinite;
             transform-origin: center;
             opacity: 0;
@@ -271,6 +287,9 @@ main {
 
         &:hover::before {
             opacity: 1;
+        }
+        &:hover{
+            transform: scale(1.05);
         }
 
         .data {
@@ -293,25 +312,7 @@ main {
                 overflow: hidden;
                 padding: 10px;
             }
-
-            &:hover {
-                box-shadow: 0 0 50px #777;
-            }
         }
-    }
-}
-
-@keyframes glowing {
-    0% {
-        transform: rotate(0) scale(1);
-    }
-
-    50% {
-        transform: rotate(180deg) scale(1.05);
-    }
-
-    100% {
-        transform: rotate(360deg) scale(1);
     }
 }
 
@@ -428,7 +429,7 @@ main {
                 right: 50px;
                 width: 40%;
                 height: 700px;
-                background: #4aa8ff;
+                background: $primary-color;
                 animation: glowing 3s linear infinite;
                 transform-origin: center;
                 opacity: 0;
@@ -440,16 +441,13 @@ main {
                 opacity: 1;
             }
 
-            &:hover {
-                box-shadow: 0 0 50px #777;
-            }
-
+    
             img {
                 width: 150px;
             }
 
             h3 {
-                color: #4aa8ff;
+                color: $primary-color;
                 font-weight: 400;
                 font-size: 1.1rem;
                 padding: 5px 5px 0 5px;
@@ -501,14 +499,14 @@ main {
 
 .title {
     font-size: 2.5rem;
-    color: #4aa8ff;
+    color: $primary-color;
     margin: 25px 0;
     padding: 0 15px;
 }
 
 .subtitle {
     font-size: 1.5rem;
-    color: #4aa8ff;
+    color: $primary-color;
     font-weight: 600;
     text-transform: uppercase;
 }
@@ -538,4 +536,9 @@ footer {
     p {
         font-size: 1.3rem;
     }
+}
+
+.error-text{
+    font-size: 1.3rem;
+    margin-left: 15px;
 }
