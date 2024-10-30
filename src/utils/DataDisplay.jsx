@@ -128,13 +128,13 @@ function DataDisplay() {
               ) : (
                 <div className="data-img-wrapper">
                   <img
-                  src={
-                    data.poster_path
-                      ? `https://image.tmdb.org/t/p/w400${data.poster_path}`
-                      : noImg
-                  }
-                  alt={`${data.title || data.name} poster`}
-                />
+                    src={
+                      data.poster_path
+                        ? `https://image.tmdb.org/t/p/w400${data.poster_path}`
+                        : noImg
+                    }
+                    alt={`${data.title || data.name} poster`}
+                  />
                 </div>
               )}
             </div>
@@ -142,12 +142,21 @@ function DataDisplay() {
               <h2 className="subtitle">Overview</h2>
               <p>
                 {loadingData || !showData ? (
-                  <Skeleton
-                    count={2}
-                    width={700}
-                    baseColor="#222"
-                    highlightColor="#333"
-                  />
+                  <div>
+                    <Skeleton
+                      height={20}
+                      width={700}
+                      baseColor="#222"
+                      highlightColor="#555"
+                    />
+                    <Skeleton
+                      height={20}
+                      width={450}
+                      baseColor="#222"
+                      highlightColor="#555"
+                      style={{ marginTop: "10px" }}
+                    />
+                  </div>
                 ) : (
                   data.overview
                 )}
@@ -169,8 +178,9 @@ function DataDisplay() {
               <p className="genres">
                 {loadingData || !showData ? (
                   <Skeleton
-                    width={200}
+                    width={300}
                     height={40}
+                    borderRadius={50}
                     baseColor="#222"
                     highlightColor="#333"
                   />
@@ -205,20 +215,22 @@ function DataDisplay() {
               )}
 
               <h2 className="subtitle">Rating</h2>
-              <div className="rating">
-                {loadingData || !showData ? (
-                  <Skeleton
-                    width={100}
-                    baseColor="#222"
-                    highlightColor="#333"
-                  />
-                ) : (
-                  <span>
+              {loadingData || !showData ? (
+                <Skeleton
+                  width={170}
+                  height={60}
+                  borderRadius={50}
+                  baseColor="#222"
+                  highlightColor="#333"
+                />
+              ) : (
+                <div className="rating">
+                  <p>
                     {data.vote_average.toFixed(1)}
-                    <span style={{ fontSize: ".9rem" }}>/ 10</span>
-                  </span>
-                )}
-              </div>
+                    <span>out of 10</span>
+                  </p>
+                </div>
+              )}
             </div>
           </div>
 

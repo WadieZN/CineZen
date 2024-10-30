@@ -28,6 +28,8 @@ html::-webkit-scrollbar-thumb {
     background: #333;
 }
 
+// Reusable styles
+
 @mixin fc($gap) {
     display: flex;
     justify-content: center;
@@ -59,6 +61,14 @@ html::-webkit-scrollbar-thumb {
     gap: $gap;
 }
 
+@mixin fcsb($gap) {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    gap: $gap;
+}
+
 @mixin placeholder {
     background: hsla(0, 0%, 10%, 0.7);
     backdrop-filter: blur(3px);
@@ -80,6 +90,7 @@ html::-webkit-scrollbar-thumb {
     }
 }
 
+// Global styles
 
 button {
     background: none;
@@ -107,44 +118,66 @@ body {
     }
 }
 
+main {
+    margin-left: 300px;
+}
+
+@media screen and (max-width: 1275px) {
+    main{
+        margin-left: 0;
+    }
+}
+
+// Aside styles
+
 aside {
     background: #000;
     overflow-y: auto;
+    overflow-x: hidden;
     width: 300px;
     height: 100vh;
     position: fixed;
     left: 0;
     top: 0;
     border-right: 1px solid #333;
-    padding: 15px 25px;
+    padding: 150px 25px 15px 25px;
 
-    .logo {
-        color: #fff;
-        font-size: 2rem;
-        font-weight: 900;
-        letter-spacing: 3px;
-        padding: 10px 0;
-        text-align: center;
-
-        span {
-            color: $primary-color;
-        }
-    }
-
-    input {
-        width: 100%;
-        padding: 10px;
-        font-size: 1rem;
-        border: 2px solid #888;
-        border-radius: 10px;
+    .aside-top {
         background: #000;
-        color: #fff;
-        margin-top: 15px;
-        transition: 300ms;
+        box-shadow: 0 20px 15px #000;
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding: 25px;
 
-        &:focus {
-            border: 2px solid $primary-color;
-            outline: none;
+        .logo {
+            color: #fff;
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            padding: 10px 0;
+            text-align: center;
+
+            span {
+                color: $primary-color;
+            }
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 2px solid #888;
+            border-radius: 10px;
+            background: #000;
+            color: #fff;
+            margin-top: 15px;
+            transition: 300ms;
+
+            &:focus {
+                border: 2px solid $primary-color;
+                outline: none;
+            }
         }
     }
 
@@ -165,37 +198,43 @@ aside {
         background-color: #f0f0f0;
     }
 
-}
+    .dropdown {
+        @include fcs(15px);
+        margin: 25px 0;
 
-.dropdown {
-    @include fcs(15px);
-    margin: 25px 0;
+        button {
+            cursor: default;
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: #fff;
+        }
 
-    button {
-        cursor: default;
-        font-size: 1.3rem;
-        font-weight: 900;
-        color: #fff;
-    }
+        .dropdown-content {
+            @include fcs(10px);
 
-    .dropdown-content {
-        @include fcs(10px);
+            a {
+                color: #ddd;
+                margin-left: 10px;
+                transition: 150ms;
 
-        a {
-            color: #ddd;
-            margin-left: 10px;
-            transition: 150ms;
-
-            &:hover {
-                color: #777;
+                &:hover {
+                    color: #777;
+                }
             }
         }
     }
 }
 
-main {
-    margin-left: 300px;
+@media screen and (max-width: 1275px) {
+    aside{
+        left: -300px;
+        .aside-top{
+            left: -300px;
+        }
+    }
 }
+
+// Hero styles
 
 .hero {
     width: 100%;
@@ -212,13 +251,17 @@ main {
         }
     }
 
-    .carousel-root {
+    .carousel {
         background: #222;
         border-radius: 10px;
         width: 100%;
         border-radius: 10px;
         overflow: hidden;
         height: 60vh;
+
+        .control-dots .dot.selected {
+            background: $primary-color;
+        }
 
         .slide {
             position: relative;
@@ -253,8 +296,9 @@ main {
         }
 
     }
-
 }
+
+
 
 .data-container {
     @include fs(15px 25px);
@@ -288,24 +332,28 @@ main {
         &:hover::before {
             opacity: 1;
         }
-        &:hover{
-            transform: scale(1.05);
-        }
 
         .data {
-            @include fcs(0);
-            width: 100%;
+            @include fcsb(0);
+            width: 190px;
+            height: 330px;
             background: #222;
             border-radius: 10px;
             overflow: hidden;
             transition: 200ms;
             z-index: 2;
 
+            &:hover {
+                box-shadow: 0 0 25px hsla(0, 0%, 60%, 0.5);
+            }
+
             img {
                 width: 100%;
+                height: 300px;
             }
 
             h3 {
+                font-size: 1.2rem;
                 text-overflow: ellipsis;
                 text-wrap: nowrap;
                 width: 100%;
@@ -379,6 +427,43 @@ main {
         }
     }
 
+    .genres {
+        @include fs(0);
+        flex-wrap: wrap;
+
+        .genre-tag {
+            padding: 5px 10px;
+            margin: 7px 15px 7px 0;
+            background: hsla(0, 0%, 20%, 0.5);
+            border: 1px solid #fff;
+            border-radius: 50px;
+        }
+    }
+
+    .rating {
+        background: hsla(0, 0%, 10%, 0.5);
+        width: 150px;
+        @include fc(0);
+        text-align: center;
+        padding: 10px 20px;
+        border: 2px solid $primary-color;
+        border-radius: 100px;
+
+        p {
+            color: $primary-color;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+            text-wrap: nowrap;
+
+            span {
+                font-size: 1.1rem;
+                color: #fff;
+                margin-left: 7px;
+            }
+        }
+    }
+
+
     .trailer {
         width: 100%;
         z-index: 2;
@@ -414,13 +499,16 @@ main {
         padding: 5px;
         border-radius: 10px;
         cursor: pointer;
+        width: 160px;
+        height: 300px;
 
         .actor {
-            @include fcs(5px);
+            @include fcsb(0);
             background: #333;
             border-radius: 10px;
             overflow: hidden;
             width: 150px;
+            height: 290px;
 
             &::before {
                 content: "";
@@ -441,7 +529,7 @@ main {
                 opacity: 1;
             }
 
-    
+
             img {
                 width: 150px;
             }
@@ -471,23 +559,6 @@ main {
     }
 }
 
-.genres {
-    @include fs(0);
-    flex-wrap: wrap;
-
-    .genre-tag {
-        padding: 5px 10px;
-        margin: 7px 15px 7px 0;
-        background: hsla(0, 0%, 20%, 0.5);
-        border: 1px solid #fff;
-        border-radius: 50px;
-    }
-}
-
-.rating {
-    font-size: 2rem;
-}
-
 .skeleton-wrapper {
     width: 200px;
     height: 330px;
@@ -495,7 +566,6 @@ main {
     border-radius: 10px;
     margin: 10px;
 }
-
 
 .title {
     font-size: 2.5rem;
@@ -523,6 +593,8 @@ footer {
     }
 }
 
+// Error Styles
+
 .error-page {
     width: 100%;
     height: 100vh;
@@ -538,7 +610,7 @@ footer {
     }
 }
 
-.error-text{
+.error-text {
     font-size: 1.3rem;
     margin-left: 15px;
 }

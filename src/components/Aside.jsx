@@ -11,19 +11,21 @@ function Aside({ onSearch }) {
 
   return (
     <aside>
-      <Link to="/" className="logo">
-        Cine<span>Zen</span>
-      </Link>
-      <form onSubmit={handleSearchSubmit}>
-        <input
-          type="search"
-          name="search"
-          id="search"
-          placeholder="Search..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </form>
+      <div className="aside-top">
+        <Link to="/" className="logo">
+          Cine<span>Zen</span>
+        </Link>
+        <form onSubmit={handleSearchSubmit}>
+          <input
+            type="search"
+            name="search"
+            id="search"
+            placeholder="Search..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </form>
+      </div>
       <nav>
         <div className="dropdown">
           <button className="dropbtn">Movies</button>
