@@ -14,22 +14,27 @@ const routes = [
   {
     path: "/:endpoint/:id",
     element: <DataDisplay />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "/search",
     element: <SearchResults />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "/movie/genre/:genre",
     element: <GenrePage />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "/tv/genre/:genre",
     element: <GenrePage />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "/actors",
     element: <ActorsPage />,
+    errorElement: <ErrorPage />,
   },
 ];
 

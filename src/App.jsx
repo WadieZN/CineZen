@@ -3,6 +3,7 @@ import Aside from "./components/Aside";
 import Hero from "./components/Hero";
 import DataCards from "./utils/DataCards";
 import { useNavigate } from "react-router-dom";
+import NavBar from "./components/NavBar";
 
 function App() {
   const navigate = useNavigate();
@@ -13,8 +14,11 @@ function App() {
     }
   };
 
+  document.title = "CineZen | Home";
+
   return (
     <>
+      <NavBar />
       <Aside onSearch={handleSearch} />
       <main>
         <Hero />

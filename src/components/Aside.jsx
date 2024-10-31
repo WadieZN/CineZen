@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-function Aside({ onSearch }) {
+function Aside({ className, onSearch }) {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    onSearch(searchTerm); 
+    onSearch(searchTerm);
   };
 
   return (
-    <aside>
+    <aside className={className}>
       <div className="aside-top">
         <Link to="/" className="logo">
           Cine<span>Zen</span>
@@ -26,7 +26,7 @@ function Aside({ onSearch }) {
           />
         </form>
       </div>
-      <nav>
+      <div className="links">
         <div className="dropdown">
           <button className="dropbtn">Movies</button>
           <div className="dropdown-content">
@@ -38,7 +38,7 @@ function Aside({ onSearch }) {
             <Link to="/movie/genre/Horror">Horror</Link>
             <Link to="/movie/genre/Science Fiction">Sci-Fi</Link>
             <Link to="/movie/genre/Crime">Crime</Link>
-        </div>
+          </div>
         </div>
         <div className="dropdown">
           <button className="dropbtn">TV Series</button>
@@ -59,7 +59,7 @@ function Aside({ onSearch }) {
             <Link to="/ErrorPage">Popular Actors</Link>
           </div>
         </div>
-      </nav>
+      </div>
     </aside>
   );
 }

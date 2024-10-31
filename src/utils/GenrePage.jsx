@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import Aside from "../components/Aside";
+import NavBar from "../components/NavBar";
 
 function GenrePage() {
   const { genre } = useParams();
@@ -9,10 +10,13 @@ function GenrePage() {
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
   const [showData, setShowData] = useState(false);
+  const isMovieGenre = window.location.pathname.includes("/movie");
+  const contentType = isMovieGenre ? "Movies" : "TV Series";
 
   useEffect(() => {
     const isMovieGenre = window.location.pathname.includes("/movie");
     fetchGenreContent(genre, isMovieGenre);
+    document.title = `CineZen | ${genre} ${contentType}`;
   }, [genre]);
 
   const fetchGenreContent = async (genreName, isMovieGenre) => {
@@ -67,12 +71,13 @@ function GenrePage() {
 
   return (
     <>
+      <NavBar />
       <Aside onSearch={handleSearch} />
       <main>
         <h2 className="title">{genre} {window.location.pathname.includes("/tv") ? "TV Series" : "Movies"}</h2>
-        <div className="data-container">
           {isPending || !showData ? (
-            Array(12)
+            <div className="data-container">
+              {Array(12)
               .fill(0)
               .map((_, index) => (
                 <div key={index} className="skeleton-wrapper">
@@ -90,7 +95,8 @@ function GenrePage() {
                     style={{ marginTop: "10px" }}
                   />
                 </div>
-              ))
+              ))}
+            </div>
           ) : error ? (
             <p>{error}</p>
           ) : (
@@ -103,7 +109,7 @@ function GenrePage() {
                 >
                   <div className="data">
                     <img
-                      src={`https://image.tmdb.org/t/p/w200${item.poster_path}`}
+                      src={`https://image.tmdb.org/t/p/w400${item.poster_path}`}
                       alt={item.title || item.name}  
                     />
                     <h3>{item.title || item.name}</h3>
@@ -112,7 +118,6 @@ function GenrePage() {
               ))}
             </div>
           )}
-        </div>
       </main>
     </>
   );

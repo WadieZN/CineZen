@@ -14,7 +14,7 @@ function DataCards({ title, endpoint }) {
   return (
     <div className="dataDisplay">
       <h2 className="title">{title}</h2>
-      <div className="data-container">
+        <div className="data-container">
         {isPending &&
           Array(12)
             .fill(0)
@@ -35,10 +35,12 @@ function DataCards({ title, endpoint }) {
                 />
               </div>
             ))}
+        </div>
 
         {error && <h2>Error: {error}</h2>}
 
-        {data &&
+       <div className="data-container">
+       {data &&
           data.slice(0, 12).map((item) => (
             <div
               className="data-wrapper"
@@ -51,7 +53,7 @@ function DataCards({ title, endpoint }) {
                 <img
                   src={
                     item.poster_path
-                      ? `https://image.tmdb.org/t/p/w220_and_h330_face${item.poster_path}`
+                      ? `https://image.tmdb.org/t/p/w400${item.poster_path}`
                       : "fallback-image-url.jpg"
                   }
                   alt={`${item.title || item.name} poster`}
@@ -60,7 +62,7 @@ function DataCards({ title, endpoint }) {
               </div>
             </div>
           ))}
-      </div>
+       </div>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Aside from "../components/Aside";
 import Skeleton from "react-loading-skeleton";
 import noImg from "../assets/img/no-img.jpg";
+import NavBar from "../components/NavBar";
 
 function DataDisplay() {
   const { id, endpoint } = useParams();
@@ -31,6 +32,7 @@ function DataDisplay() {
       .then((data) => {
         setData(data);
         setLoadingData(false);
+        document.title = `CineZen | ${data.title || data.name}`;
       });
 
     fetch(
@@ -72,6 +74,7 @@ function DataDisplay() {
 
   return (
     <>
+      <NavBar />
       <Aside onSearch={handleSearch} />
       <main>
         <div className="data-page">
@@ -138,9 +141,9 @@ function DataDisplay() {
                 </div>
               )}
             </div>
+
             <div className="data-overview">
               <h2 className="subtitle">Overview</h2>
-              <p>
                 {loadingData || !showData ? (
                   <div>
                     <Skeleton
@@ -158,9 +161,9 @@ function DataDisplay() {
                     />
                   </div>
                 ) : (
-                  data.overview
+                  <p>{data.overview}</p>
                 )}
-              </p>
+
               <h2 className="subtitle">Release Date</h2>
               <p>
                 {loadingData || !showData ? (
@@ -205,7 +208,7 @@ function DataDisplay() {
                       />
                     ) : (
                       directors.map((director) => (
-                        <span key={director.id} className="crew-tag">
+                        <span key={director.id} className="director">
                           {director.name}
                         </span>
                       ))

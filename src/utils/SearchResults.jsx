@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import SearchCards from "./SearchCards";
 import Aside from "../components/Aside";
 import Skeleton from "react-loading-skeleton";
+import NavBar from "../components/NavBar";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -18,6 +19,7 @@ function SearchResults() {
 
   useEffect(() => {
     if (query) {
+      document.title = `CineZen | "${query}" results`;
       fetchSearchResults(query);
     }
   }, [query]);
@@ -52,31 +54,36 @@ function SearchResults() {
 
   return (
     <>
+      <NavBar />
       <Aside onSearch={handleSearch} />
       <main>
         <h2 className="title">Search Results</h2>
-        <div className="data-container">
+        <div>
           {isPending || !showData ? (
-            Array(12)
-              .fill(0)
-              .map((_, index) => (
-                <div key={index} className="skeleton-wrapper">
-                  <Skeleton
-                    height={300}
-                    width={200}
-                    baseColor="#222"
-                    highlightColor="#555"
-                  />
-                  <Skeleton
-                    height={20}
-                    width={200}
-                    baseColor="#222"
-                    highlightColor="#555"
-                    style={{ marginTop: "10px" }}
-                  />
-                </div>
-              ))
-          ) : (results.length === 0 || error) ? (
+            <div className="data-container">
+              {
+                Array(12)
+                .fill(0)
+                .map((_, index) => (
+                  <div key={index} className="skeleton-wrapper">
+                    <Skeleton
+                      height={300}
+                      width={200}
+                      baseColor="#222"
+                      highlightColor="#555"
+                    />
+                    <Skeleton
+                      height={20}
+                      width={200}
+                      baseColor="#222"
+                      highlightColor="#555"
+                      style={{ marginTop: "10px" }}
+                    />
+                  </div>
+                ))
+              }
+            </div>
+          ) : results.length === 0 || error ? (
             <p className="error-text">No results found.</p>
           ) : (
             <SearchCards title="Current Search Results" results={results} />
