@@ -14,21 +14,21 @@ function DataCards({ title, endpoint }) {
   return (
     <div className="dataDisplay">
       <h2 className="title">{title}</h2>
-        <div className="data-container">
-        {isPending &&
-          Array(12)
+      {isPending && (
+        <div className="skeleton-container">
+          {Array(12)
             .fill(0)
             .map((_, index) => (
               <div key={index} className="skeleton-wrapper">
                 <Skeleton
                   height={300}
-                  width={200}
+                  width="100%"
                   baseColor="#222"
                   highlightColor="#555"
                 />
                 <Skeleton
                   height={20}
-                  width={200}
+                  width="100%"
                   baseColor="#222"
                   highlightColor="#555"
                   style={{ marginTop: "10px" }}
@@ -36,11 +36,12 @@ function DataCards({ title, endpoint }) {
               </div>
             ))}
         </div>
+      )}
 
-        {error && <h2>Error: {error}</h2>}
+      {error && <h2>Error: {error}</h2>}
 
-       <div className="data-container">
-       {data &&
+      <div className="data-container">
+        {data &&
           data.slice(0, 12).map((item) => (
             <div
               className="data-wrapper"
@@ -62,7 +63,7 @@ function DataCards({ title, endpoint }) {
               </div>
             </div>
           ))}
-       </div>
+      </div>
     </div>
   );
 }

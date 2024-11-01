@@ -76,7 +76,7 @@ function GenrePage() {
       <main>
         <h2 className="title">{genre} {window.location.pathname.includes("/tv") ? "TV Series" : "Movies"}</h2>
           {isPending || !showData ? (
-            <div className="data-container">
+            <div className="skeleton-container">
               {Array(12)
               .fill(0)
               .map((_, index) => (

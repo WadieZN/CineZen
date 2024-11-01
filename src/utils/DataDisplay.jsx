@@ -144,25 +144,25 @@ function DataDisplay() {
 
             <div className="data-overview">
               <h2 className="subtitle">Overview</h2>
-                {loadingData || !showData ? (
-                  <div>
-                    <Skeleton
-                      height={20}
-                      width={700}
-                      baseColor="#222"
-                      highlightColor="#555"
-                    />
-                    <Skeleton
-                      height={20}
-                      width={450}
-                      baseColor="#222"
-                      highlightColor="#555"
-                      style={{ marginTop: "10px" }}
-                    />
-                  </div>
-                ) : (
-                  <p>{data.overview}</p>
-                )}
+              {loadingData || !showData ? (
+                <div style={{ width: "100%" }}>
+                  <Skeleton
+                    height={20}
+                    width="100%"
+                    baseColor="#222"
+                    highlightColor="#555"
+                  />
+                  <Skeleton
+                    height={20}
+                    width="50%"
+                    baseColor="#222"
+                    highlightColor="#555"
+                    style={{ marginTop: "10px" }}
+                  />
+                </div>
+              ) : (
+                <p>{data.overview}</p>
+              )}
 
               <h2 className="subtitle">Release Date</h2>
               <p>
@@ -238,54 +238,61 @@ function DataDisplay() {
           </div>
 
           <div className="cast-list">
-            {loadingCast || !showData
-              ? Array(6)
-                  .fill()
-                  .map((_, i) => (
-                    <div key={i} className="actor">
-                      <Skeleton
-                        height={225}
-                        width={150}
-                        baseColor="#222"
-                        highlightColor="#333"
-                      />
-                      <Skeleton
-                        width={100}
-                        baseColor="#222"
-                        highlightColor="#333"
-                      />
-                      <Skeleton
-                        width={120}
-                        baseColor="#222"
-                        highlightColor="#333"
-                      />
-                    </div>
-                  ))
-              : cast.length > 0 && (
-                  <div className="cast-container">
-                    <h2 className="subtitle">Top Cast</h2>
-                    <div className="cast-list">
-                      {cast.map((actor) => (
-                        <div key={actor.id} className="actor-wrapper">
-                          <div className="actor">
-                            <img
-                              src={
-                                actor.profile_path
-                                  ? `https://image.tmdb.org/t/p/w200${actor.profile_path}`
-                                  : noImg
-                              }
-                              alt={actor.name}
-                            />
-                            <h3>{actor.name || "Unknown"}</h3>
-                            <h4 className="character-name">
-                              {actor.character || "Unknown"}
-                            </h4>
-                          </div>
+            {loadingCast || !showData ? (
+              <>
+                <h2 className="subtitle">Top Cast</h2>
+                <div className="skeleton-container">
+                  {Array(6)
+                    .fill()
+                    .map((_, i) => (
+                      <div key={i} className="actor">
+                        <Skeleton
+                          height={225}
+                          width={150}
+                          baseColor="#222"
+                          highlightColor="#333"
+                        />
+                        <Skeleton
+                          width={100}
+                          baseColor="#222"
+                          highlightColor="#333"
+                        />
+                        <Skeleton
+                          width={120}
+                          baseColor="#222"
+                          highlightColor="#333"
+                        />
+                      </div>
+                    ))}
+                </div>
+              </>
+            ) : (
+              cast.length > 0 && (
+                <div className="cast-container">
+                  <h2 className="subtitle">Top Cast</h2>
+                  <div className="cast-list">
+                    {cast.map((actor) => (
+                      <div key={actor.id} className="actor-wrapper">
+                        <div className="actor">
+                          <img
+                            src={
+                              actor.profile_path
+                                ? `https://image.tmdb.org/t/p/w200${actor.profile_path}`
+                                : noImg
+                            }
+                            alt={actor.name}
+                          />
+                          <h3>{actor.name || "Unknown"}</h3>
+                          <h4 className="character-name">
+                            {actor.character || "Unknown"}
+                          </h4>
                         </div>
-                      ))}
-                    </div>
+                      </div>
+                    ))}
                   </div>
-                )}
+                </div>
+              )
+            )}
           </div>
 
           <h2 className="subtitle">Trailer</h2>

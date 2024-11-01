@@ -33,7 +33,7 @@ function NavBar() {
           Cine<span>Zen</span>
         </Link>
       </nav>
-      <Aside onSearch={handleSearch} className={open ? "aside-open" : ""} />
+      <Aside onSearch={handleSearch} setOpen={setOpen} className={open ? "aside-open" : ""} />
     </>
   );
 }

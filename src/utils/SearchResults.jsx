@@ -60,9 +60,8 @@ function SearchResults() {
         <h2 className="title">Search Results</h2>
         <div>
           {isPending || !showData ? (
-            <div className="data-container">
-              {
-                Array(12)
+            <div className="skeleton-container">
+              {Array(12)
                 .fill(0)
                 .map((_, index) => (
                   <div key={index} className="skeleton-wrapper">
@@ -80,8 +79,7 @@ function SearchResults() {
                       style={{ marginTop: "10px" }}
                     />
                   </div>
-                ))
-              }
+                ))}
             </div>
           ) : results.length === 0 || error ? (
             <p className="error-text">No results found.</p>

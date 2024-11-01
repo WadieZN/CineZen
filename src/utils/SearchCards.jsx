@@ -13,9 +13,9 @@ function SearchCards({ results, isPending, error }) {
 
   return (
     <div className="dataDisplay">
-      <div className="data-container">
-        {isPending &&
-          Array(12)
+      {isPending && (
+        <div className="skeleton-container">
+          {Array(12)
             .fill(0)
             .map((_, index) => (
               <div key={index} className="skeleton-wrapper">
@@ -34,11 +34,14 @@ function SearchCards({ results, isPending, error }) {
                 />
               </div>
             ))}
+        </div>
+      )}
 
-        {error && <h2>Error: {error}</h2>}
+      {error && <h2>Error: {error}</h2>}
 
-        {results &&
-          results.slice(0, 12).map((item) => (
+      {results && (
+        <div className="data-container">
+          {results.slice(0, 12).map((item) => (
             <div
               className="data-wrapper"
               key={item.id}
@@ -57,7 +60,8 @@ function SearchCards({ results, isPending, error }) {
               </div>
             </div>
           ))}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
