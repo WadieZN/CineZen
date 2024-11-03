@@ -1,69 +1,40 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Skeleton from "react-loading-skeleton";
-import noImg from "./../assets/img/no-img.jpg";
+import CardGrid from "./../utils/CardGrid";
 
-function SearchCards({ results, isPending, error }) {
+function SearchCards({ 
+  results = [], 
+  isPending, 
+  error, 
+  favorites, 
+  watchLater, 
+  toggleFavorite, 
+  toggleWatchLater 
+}) {
   const navigate = useNavigate();
 
-  function handleClick(item) {
-    const endpointType = item.media_type === "tv" ? "tv" : "movie";
-    navigate(`/${endpointType}/${item.id}`);
+  function handleCardClick(item) {
+    if (item && item.media_type && item.id) {
+      navigate(`/${item.media_type === "tv" ? "tv" : "movie"}/${item.id}`);
+    } else {
+      console.warn("Invalid item data:", item);
+    }
   }
+  
 
   return (
-    <div className="dataDisplay">
-      {isPending && (
-        <div className="skeleton-container">
-          {Array(12)
-            .fill(0)
-            .map((_, index) => (
-              <div key={index} className="skeleton-wrapper">
-                <Skeleton
-                  height={300}
-                  width={200}
-                  baseColor="#222"
-                  highlightColor="#555"
-                />
-                <Skeleton
-                  height={20}
-                  width={200}
-                  baseColor="#222"
-                  highlightColor="#555"
-                  style={{ marginTop: "10px" }}
-                />
-              </div>
-            ))}
-        </div>
-      )}
-
-      {error && <h2>Error: {error}</h2>}
-
-      {results && (
-        <div className="data-container">
-          {results.slice(0, 12).map((item) => (
-            <div
-              className="data-wrapper"
-              key={item.id}
-              onClick={() => handleClick(item)}
-            >
-              <div className="data">
-                <img
-                  src={
-                    item.poster_path
-                      ? `https://image.tmdb.org/t/p/w220_and_h330_face${item.poster_path}`
-                      : noImg
-                  }
-                  alt={`${item.title || item.name} poster`}
-                />
-                <h3>{item.title || item.name}</h3>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+    <CardGrid
+      data={results}
+      isPending={isPending}
+      error={error}
+      onCardClick={handleCardClick}
+      toggleFavorite={toggleFavorite}
+      toggleWatchLater={toggleWatchLater}
+      favorites={favorites}
+      watchLater={watchLater}
+    />
   );
 }
+
 
 export default SearchCards;

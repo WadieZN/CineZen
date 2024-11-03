@@ -4,6 +4,7 @@ import SearchCards from "./SearchCards";
 import Aside from "../components/Aside";
 import Skeleton from "react-loading-skeleton";
 import NavBar from "../components/NavBar";
+import UserCollection from "../components/UserCollection";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -17,12 +18,27 @@ function SearchResults() {
   const [error, setError] = useState(null);
   const [showData, setShowData] = useState(false);
 
+  const [favorites, setFavorites] = useState(() => {
+    return JSON.parse(localStorage.getItem("favorites")) || {};
+  });
+  const [watchLater, setWatchLater] = useState(() => {
+    return JSON.parse(localStorage.getItem("watchLater")) || {};
+  });
+
   useEffect(() => {
     if (query) {
       document.title = `CineZen | "${query}" results`;
       fetchSearchResults(query);
     }
   }, [query]);
+
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
+
+  useEffect(() => {
+    localStorage.setItem("watchLater", JSON.stringify(watchLater));
+  }, [watchLater]);
 
   const fetchSearchResults = async (searchTerm) => {
     setIsPending(true);
@@ -52,10 +68,40 @@ function SearchResults() {
     }
   };
 
+  const toggleFavorite = (item) => {
+    setFavorites((prev) => {
+      const updated = { ...prev };
+      if (updated[item.id]) {
+        delete updated[item.id];
+      } else {
+        updated[item.id] = item; 
+      }
+      return updated;
+    });
+  };
+
+  const toggleWatchLater = (item) => {
+    setWatchLater((prev) => {
+      const updated = { ...prev };
+      if (updated[item.id]) {
+        delete updated[item.id];
+      } else {
+        updated[item.id] = item; 
+      }
+      return updated;
+    });
+  };
+
+  const cleanList = (list) => Object.values(list).filter((item) => item);
+
   return (
     <>
       <NavBar />
       <Aside onSearch={handleSearch} />
+      <UserCollection
+        favorites={cleanList(favorites)}
+        watchLater={cleanList(watchLater)}
+      />
       <main>
         <h2 className="title">Search Results</h2>
         <div>
@@ -84,7 +130,16 @@ function SearchResults() {
           ) : results.length === 0 || error ? (
             <p className="error-text">No results found.</p>
           ) : (
-            <SearchCards title="Current Search Results" results={results} />
+            <SearchCards
+              title="Current Search Results"
+              results={results}
+              isPending={isPending}
+              error={error}
+              favorites={favorites}
+              watchLater={watchLater}
+              toggleFavorite={toggleFavorite}
+              toggleWatchLater={toggleWatchLater}
+            />
           )}
         </div>
       </main>
