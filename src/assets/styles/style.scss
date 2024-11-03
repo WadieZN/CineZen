@@ -466,11 +466,14 @@ nav {
         &:hover::before {
             opacity: 1;
         }
+        &:hover .show-more-btn{
+            opacity: 1;
+        }
 
         .data {
             @include fcsb(0);
             width: 190px;
-            height: 330px;
+            height: 100%;
             background: #333;
             border-radius: 10px;
             overflow: hidden;
@@ -498,6 +501,55 @@ nav {
     }
 }
 
+.show-more-btn {
+    opacity: 0;
+    @include fc(0);
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: hsla(0, 0%, 0%, 0.7);
+    border-radius: 50%;
+    z-index: 5;
+    transition: 300ms;
+    img{
+        max-width: 25px;
+    }
+  }
+  
+  .more-options {
+    @include fc(0);
+    background: hsla(0, 0%, 0%, 0.7);
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: scale(0);
+    transform-origin: top right;
+    transition: 200ms ease;
+    opacity: 0;
+    button{
+        padding: 15px;
+        img {
+            max-width: 40px;
+          }
+    }
+  }
+  
+  .more-options.show {
+    transform: scale(1);
+    opacity: 1;
+  }
+  
+  .more-options.hide {
+    transform: scale(0);
+    opacity: 0;
+  }
+  
+
 @media screen and (max-width: 768px) {
     .data-container {
         display: grid;
@@ -524,7 +576,7 @@ nav {
     }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 370px) {
     .data-container {
         @include fcc(5px);
     }
@@ -863,3 +915,109 @@ footer {
     font-size: 1.3rem;
     margin-left: 15px;
 }
+
+.user-collection{
+    background: #000;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 300px;
+    height: 100vh;
+    position: fixed;
+    right: -300px;
+    top: 0;
+    padding: 80px 15px 15px 15px;
+    z-index: 99;
+    transition: 300ms ease;
+    scrollbar-width: none;
+    &.open{
+        right: 0;
+    }
+}
+
+.user-collection-nav {
+    width: 300px;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    position: fixed;
+    top: 0;
+    right: -300px;
+    padding: 15px;
+    transition: 300ms ease;
+    &.open{
+        right: 0;
+    }
+  }
+  
+  .user-collection-nav button {
+    background: #000;
+    color: $primary-color;
+    border: 2px solid #333;
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin: 0 5px;
+    transition: background-color 0.3s;
+    font-size: 0.9rem;
+  }
+  
+  .user-collection-nav button.active {
+    background-color: #111;
+    border-color: #777;
+  }
+  
+  .user-collection-nav button:hover:not(.active) {
+    background-color: #333;
+  }
+  
+  .collection-list {
+    text-align: center;
+  }
+  
+  .collection-grid {
+    @include fcc(15px);
+    list-style: none;
+    padding: 0;
+  }
+  
+  .collection-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .collection-item-img {
+    width: 100%;
+    border-radius: 8px;
+  }
+  
+  .collection-item-title {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #ddd;
+  }
+  
+  .toggle-collection{
+    position: fixed;
+    top: 50%;
+    right: -30px;
+    transform: translate(-50%, -50%);
+    background: #000;
+    padding: 10px 10px 10px 8px;
+    border-radius: 15px;
+    width: 40px;
+    height: 40px;
+    z-index: -1;
+    transition: 300ms ease;
+    img{
+        width: 20px;
+        transition: 150ms;
+    }
+    &.open{
+        right: 265px;
+    }
+    &.open img{
+        transform: rotate(180deg) translateX(8px);
+    }
+  }
+

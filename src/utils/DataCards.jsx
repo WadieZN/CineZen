@@ -1,14 +1,37 @@
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useData from "../hooks/useFetch";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import moreDots from "../assets/img/more.svg";
+import heartAdd from "../assets/img/heart-add.svg";
+import heartAdded from "../assets/img/heart-added.svg";
+import bookmarkAdd from "../assets/img/bookmark-add.svg";
+import bookmarkAdded from "../assets/img/bookmark-added.svg";
 
-function DataCards({ title, endpoint }) {
+function DataCards({
+  title,
+  endpoint,
+  favorites,
+  watchLater,
+  toggleFavorite,
+  toggleWatchLater,
+}) {
   const { data, isPending, error } = useData(endpoint);
   const navigate = useNavigate();
+  const [showMore, setShowMore] = useState(null);
 
   function handleClick(item, endpointType) {
     navigate(`/${endpointType}/${item.id}`);
+  }
+
+  function handleShowMore(e, itemId) {
+    e.stopPropagation();
+    if (showMore === itemId) {
+      setShowMore(null);
+    } else {
+      setShowMore(itemId);
+    }
   }
 
   return (
@@ -43,14 +66,13 @@ function DataCards({ title, endpoint }) {
       <div className="data-container">
         {data &&
           data.slice(0, 12).map((item) => (
-            <div
-              className="data-wrapper"
-              key={item.id}
-              onClick={() =>
-                handleClick(item, endpoint.includes("tv") ? "tv" : "movie")
-              }
-            >
-              <div className="data">
+            <div className="data-wrapper" key={item.id}>
+              <div
+                className="data"
+                onClick={() =>
+                  handleClick(item, endpoint.includes("tv") ? "tv" : "movie")
+                }
+              >
                 <img
                   src={
                     item.poster_path
@@ -60,6 +82,38 @@ function DataCards({ title, endpoint }) {
                   alt={`${item.title || item.name} poster`}
                 />
                 <h3>{item.title || item.name}</h3>
+                <button
+                  className="show-more-btn"
+                  onClick={(e) => handleShowMore(e, item.id)}
+                >
+                  <img src={moreDots} alt="Show more" />
+                </button>
+                {showMore === item.id && (
+                  <div className={`more-options show`}>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleFavorite(item);
+                      }}
+                    >
+                      <img
+                        src={favorites[item.id] ? heartAdded : heartAdd}
+                        alt="Favorite"
+                      />
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleWatchLater(item);
+                      }}
+                    >
+                      <img
+                        src={watchLater[item.id] ? bookmarkAdded : bookmarkAdd}
+                        alt="Watch later"
+                      />
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           ))}
