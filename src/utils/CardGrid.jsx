@@ -90,6 +90,7 @@ function CardGrid({
                         alt="Favorite"
                         
                       />
+                      Add to Favorites
                     </button>
                     <button
                       onClick={(e) => {
@@ -101,6 +102,7 @@ function CardGrid({
                         src={watchLater[item.id] ? bookmarkAdded : bookmarkAdd}
                         alt="Watch later"
                       />
+                      Add to Watch Later
                     </button>
                   </div>
                 )}

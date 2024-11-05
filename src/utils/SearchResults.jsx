@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import SearchCards from "./SearchCards";
 import Aside from "../components/Aside";
 import Skeleton from "react-loading-skeleton";
 import NavBar from "../components/NavBar";
 import UserCollection from "../components/UserCollection";
+import { UserCollectionContext } from "./UserCollectionContext"; 
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -13,17 +14,12 @@ function useQuery() {
 function SearchResults() {
   const query = useQuery().get("query");
   const navigate = useNavigate();
+  const { favorites, watchLater, toggleFavorite, toggleWatchLater } = useContext(UserCollectionContext);
+
   const [results, setResults] = useState([]);
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
   const [showData, setShowData] = useState(false);
-
-  const [favorites, setFavorites] = useState(() => {
-    return JSON.parse(localStorage.getItem("favorites")) || {};
-  });
-  const [watchLater, setWatchLater] = useState(() => {
-    return JSON.parse(localStorage.getItem("watchLater")) || {};
-  });
 
   useEffect(() => {
     if (query) {
@@ -31,14 +27,6 @@ function SearchResults() {
       fetchSearchResults(query);
     }
   }, [query]);
-
-  useEffect(() => {
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-  }, [favorites]);
-
-  useEffect(() => {
-    localStorage.setItem("watchLater", JSON.stringify(watchLater));
-  }, [watchLater]);
 
   const fetchSearchResults = async (searchTerm) => {
     setIsPending(true);
@@ -68,39 +56,13 @@ function SearchResults() {
     }
   };
 
-  const toggleFavorite = (item) => {
-    setFavorites((prev) => {
-      const updated = { ...prev };
-      if (updated[item.id]) {
-        delete updated[item.id];
-      } else {
-        updated[item.id] = item; 
-      }
-      return updated;
-    });
-  };
-
-  const toggleWatchLater = (item) => {
-    setWatchLater((prev) => {
-      const updated = { ...prev };
-      if (updated[item.id]) {
-        delete updated[item.id];
-      } else {
-        updated[item.id] = item; 
-      }
-      return updated;
-    });
-  };
-
-  const cleanList = (list) => Object.values(list).filter((item) => item);
-
   return (
     <>
       <NavBar />
       <Aside onSearch={handleSearch} />
       <UserCollection
-        favorites={cleanList(favorites)}
-        watchLater={cleanList(watchLater)}
+        favorites={favorites}
+        watchLater={watchLater}
       />
       <main>
         <h2 className="title">Search Results</h2>

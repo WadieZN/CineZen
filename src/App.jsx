@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Aside from "./components/Aside";
 import Hero from "./components/Hero";
 import DataCards from "./utils/DataCards";
 import NavBar from "./components/NavBar";
 import UserCollection from "./components/UserCollection";
+import { UserCollectionContext } from "./utils/UserCollectionContext";
 
 function App() {
-  const [favorites, setFavorites] = useState({});
-  const [watchLater, setWatchLater] = useState({});
+  document.title = "CineZen | Home";
+
+  const { favorites, watchLater, toggleFavorite, toggleWatchLater } = useContext(UserCollectionContext);
   const navigate = useNavigate();
 
   const handleSearch = (searchTerm) => {
@@ -17,33 +19,7 @@ function App() {
     }
   };
 
-  const toggleFavorite = (item) => {
-    setFavorites((prev) => {
-      const updated = { ...prev };
-      if (updated[item.id]) {
-        delete updated[item.id];
-      } else {
-        updated[item.id] = item; 
-      }
-      return updated;
-    });
-  };
-
-  const toggleWatchLater = (item) => {
-    setWatchLater((prev) => {
-      const updated = { ...prev };
-      if (updated[item.id]) {
-        delete updated[item.id];
-      } else {
-        updated[item.id] = item; 
-      }
-      return updated;
-    });
-  };
-
   const cleanList = (list) => Object.values(list).filter((item) => item);
-
-  document.title = "CineZen | Home";
 
   return (
     <>
@@ -56,40 +32,40 @@ function App() {
           endpoint="movie/upcoming"
           favorites={favorites}
           watchLater={watchLater}
-          toggleFavorite={toggleFavorite}
-          toggleWatchLater={toggleWatchLater}
+          toggleFavorite={toggleFavorite} 
+          toggleWatchLater={toggleWatchLater} 
         />
         <DataCards
           title="Popular Movies"
           endpoint="movie/popular"
           favorites={favorites}
           watchLater={watchLater}
-          toggleFavorite={toggleFavorite}
-          toggleWatchLater={toggleWatchLater}
+          toggleFavorite={toggleFavorite} 
+          toggleWatchLater={toggleWatchLater} 
         />
         <DataCards
           title="Popular TV Shows"
           endpoint="tv/popular"
           favorites={favorites}
           watchLater={watchLater}
-          toggleFavorite={toggleFavorite}
-          toggleWatchLater={toggleWatchLater}
+          toggleFavorite={toggleFavorite} 
+          toggleWatchLater={toggleWatchLater} 
         />
         <DataCards
           title="Top Rated Movies"
           endpoint="movie/top_rated"
           favorites={favorites}
           watchLater={watchLater}
-          toggleFavorite={toggleFavorite}
-          toggleWatchLater={toggleWatchLater}
+          toggleFavorite={toggleFavorite} 
+          toggleWatchLater={toggleWatchLater} 
         />
         <DataCards
           title="Top Rated Shows"
           endpoint="tv/top_rated"
           favorites={favorites}
           watchLater={watchLater}
-          toggleFavorite={toggleFavorite}
-          toggleWatchLater={toggleWatchLater}
+          toggleFavorite={toggleFavorite} 
+          toggleWatchLater={toggleWatchLater} 
         />
 
         <UserCollection
