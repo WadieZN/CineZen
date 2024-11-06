@@ -23,6 +23,7 @@ function DataCards({ title, endpoint, favorites, watchLater, toggleFavorite, tog
         toggleWatchLater={toggleWatchLater}
         favorites={favorites}
         watchLater={watchLater}
+        count={12}
       />
     </div>
   );

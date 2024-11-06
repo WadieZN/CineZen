@@ -16,6 +16,7 @@ function Hero() {
         transitionTime={500}
         stopOnHover={false}
         showStatus={false}
+        showArrows={false}
       >
         <div className="slide s-1">
           <p>

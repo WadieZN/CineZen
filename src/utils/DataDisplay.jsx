@@ -1,9 +1,15 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Aside from "../components/Aside";
 import Skeleton from "react-loading-skeleton";
 import noImg from "../assets/img/no-img.jpg";
 import NavBar from "../components/NavBar";
+import UserCollection from "../components/UserCollection";
+import { UserCollectionContext } from "./UserCollectionContext";
+import heartAdd from "../assets/img/heart-add.svg";
+import heartAdded from "../assets/img/heart-added.svg";
+import bookmarkAdd from "../assets/img/bookmark-add.svg";
+import bookmarkAdded from "../assets/img/bookmark-added.svg";
 
 function DataDisplay() {
   const { id, endpoint } = useParams();
@@ -16,6 +22,8 @@ function DataDisplay() {
   const [loadingTrailer, setLoadingTrailer] = useState(true);
   const [showData, setShowData] = useState(false);
   const apiKey = "9243098c7038ad501a3bbff3589770d7";
+  const { favorites, watchLater, toggleFavorite, toggleWatchLater } =
+    useContext(UserCollectionContext);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -72,10 +80,18 @@ function DataDisplay() {
     }
   };
 
+  const cleanList = (list) => Object.values(list).filter((item) => item);
+
   return (
     <>
       <NavBar />
       <Aside onSearch={handleSearch} />
+      <UserCollection
+        favorites={cleanList(favorites)}
+        watchLater={cleanList(watchLater)}
+        toggleFavorite={toggleFavorite}
+        toggleWatchLater={toggleWatchLater}
+      />
       <main>
         <div className="data-page">
           <div
@@ -143,6 +159,22 @@ function DataDisplay() {
             </div>
 
             <div className="data-overview">
+            <div className="buttons">
+                <button>
+                  <img
+                    src={heartAdded}
+                    alt="Favorite"
+                  />
+                  Favorite
+                </button>
+                <button>
+                  <img
+                    src={bookmarkAdded}
+                    alt="Watch later"
+                  />
+                  Watch Later
+                </button>
+              </div>
               <h2 className="subtitle">Overview</h2>
               {loadingData || !showData ? (
                 <div style={{ width: "100%" }}>
@@ -161,7 +193,7 @@ function DataDisplay() {
                   />
                 </div>
               ) : (
-                <p>{data.overview}</p>
+                <p>{data.overview ? data.overview : "No overview for this show."}</p>
               )}
 
               <h2 className="subtitle">Release Date</h2>

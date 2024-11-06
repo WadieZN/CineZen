@@ -32,6 +32,7 @@ function SearchCards({
       toggleWatchLater={toggleWatchLater}
       favorites={favorites}
       watchLater={watchLater}
+      count={20}
     />
   );
 }

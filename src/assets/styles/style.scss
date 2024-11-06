@@ -380,7 +380,7 @@ nav {
         width: 100%;
         border-radius: 10px;
         overflow: hidden;
-        height: 60vh;
+        height: 55vh;
         z-index: 0;
 
         .control-dots .dot.selected {
@@ -390,16 +390,15 @@ nav {
         .slide {
             position: relative;
             width: 100%;
-            height: 60vh;
+            height: 55vh;
             background-position: center;
             background-size: cover;
             background-repeat: no-repeat;
 
             p {
-                user-select: none;
                 background: hsla(0, 0%, 0%, 0.8);
                 width: 100%;
-                font-size: 2rem;
+                font-size: 1.6rem;
                 padding: 25px 25px 45px 25px;
                 position: absolute;
                 bottom: 0;
@@ -525,7 +524,6 @@ nav {
     right: 15px;
     background: hsla(0, 0%, 0%, 0.7);
     border-radius: 50%;
-    z-index: 5;
     transition: 150ms;
     padding: 3px;
 
@@ -649,6 +647,25 @@ nav {
     width: 100%;
     padding: 25px;
 
+    .buttons{
+        @include fc(15px);
+        button{
+            @include fc(5px);
+            background: hsla(0, 0%, 10%, 0.5);
+            color: $primary-color;
+            border: 2px solid $primary-color;
+            border-radius: 50px;
+            padding: 10px 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: 200ms;
+            &:hover{
+                color: #fff;
+                border-color: #fff;
+            }
+        }
+    }
+
     .data-background {
         content: '';
         position: absolute;
@@ -723,24 +740,21 @@ nav {
     }
 
     .rating {
-        background: hsla(0, 0%, 10%, 0.5);
-        width: 150px;
         @include fc(0);
         text-align: center;
-        padding: 10px 20px;
-        border: 2px solid $primary-color;
-        border-radius: 100px;
 
         p {
             color: $primary-color;
             font-size: 2rem;
             transition: all 0.3s ease;
             text-wrap: nowrap;
+            font-weight: 900;
 
             span {
                 font-size: 1.1rem;
                 color: #fff;
                 margin-left: 7px;
+                font-weight: normal;
             }
         }
     }
@@ -767,6 +781,10 @@ nav {
     .data-page {
         @include fcs(15px);
         padding: 15px;
+
+        .buttons{
+            align-self: center;
+        }
 
         .data-info {
             @include fcc(15px);
@@ -999,10 +1017,9 @@ footer {
     right: -300px;
     top: 0;
     padding: 80px 15px 15px 15px;
-    z-index: 99;
     transition: 300ms ease;
     scrollbar-width: none;
-
+    z-index: 51;
     &.open {
         right: 0;
     }
@@ -1128,7 +1145,7 @@ footer {
     border-radius: 15px;
     width: 40px;
     height: 80px;
-    z-index: -1;
+    z-index: 50;
     transition: 300ms ease;
 
     img {

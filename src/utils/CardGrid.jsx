@@ -17,6 +17,7 @@ function CardGrid({
   toggleWatchLater,
   favorites,
   watchLater,
+  count,
 }) {
   const [showMore, setShowMore] = useState({});
 
@@ -57,7 +58,7 @@ function CardGrid({
 
       <div className="data-container">
         {data &&
-          data.map((item) => (
+          data.slice(0, count).map((item) => (
             <div
               className="data-wrapper"
               key={item.id}

@@ -95,6 +95,7 @@ function GenrePage() {
           toggleWatchLater={toggleWatchLater}
           favorites={favorites}
           watchLater={watchLater}
+          count={20}
         />
       </main>
     </>
