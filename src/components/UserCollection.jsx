@@ -1,13 +1,30 @@
 import { useState } from "react";
 import arrow from "./../assets/img/arrow.svg";
+import trashCan from "./../assets/img/trash.svg";
+import noImg from "./../assets/img/no-img.jpg";
+import { useNavigate } from "react-router-dom";
 
-function UserCollection({ favorites, watchLater, toggleFavorite, toggleWatchLater }) {
+function UserCollection({
+  favorites,
+  watchLater,
+  toggleFavorite,
+  toggleWatchLater,
+}) {
   const [activeList, setActiveList] = useState("favorites");
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleClick = () => {
     setOpen((prevState) => !prevState);
   };
+
+  function handleCardClick(item) {
+    if (item && item.media_type && item.id) {
+      navigate(`/${item.media_type === "tv" ? "tv" : "movie"}/${item.id}`);
+    } else {
+      console.warn("Invalid item data:", item);
+    }
+  }
 
   return (
     <div className={`user-collection ${open ? "open" : ""}`}>
@@ -40,22 +57,29 @@ function UserCollection({ favorites, watchLater, toggleFavorite, toggleWatchLate
                 <li
                   key={item.id || `${item.title}-${index}`}
                   className="collection-item"
+                  onClick={handleCardClick}
                 >
                   <img
-                    src={`https://image.tmdb.org/t/p/w200${item.poster_path}`}
+                    src={
+                      item.poster_path
+                        ? `https://image.tmdb.org/t/p/w300${item.poster_path}`
+                        : noImg
+                    }
                     alt={item.title || item.name}
                     className="collection-item-img"
                   />
-                  <span className="collection-item-title">
-                    {item.title || item.name}
-                  </span>
-                  <button onClick={() => toggleFavorite(item)}>
-                    Remove
-                  </button>
+                  <div className="collection-item-info">
+                    <span className="collection-item-title">
+                      {item.title || item.name}
+                    </span>
+                    <button className="remove-data" onClick={() => toggleFavorite(item)}>
+                      <img src={trashCan} alt="Remove from Favorites" />
+                      </button>
+                  </div>
                 </li>
               ))
             ) : (
-              <p>No favorites added yet.</p>
+              <p>No items in favorites yet.</p>
             )}
           </ul>
         )}
@@ -67,18 +91,21 @@ function UserCollection({ favorites, watchLater, toggleFavorite, toggleWatchLate
                 <li
                   key={item.id || `${item.title}-${index}`}
                   className="collection-item"
+                  onClick={handleCardClick}
                 >
                   <img
                     src={`https://image.tmdb.org/t/p/w200${item.poster_path}`}
                     alt={item.title || item.name}
                     className="collection-item-img"
                   />
-                  <span className="collection-item-title">
-                    {item.title || item.name}
-                  </span>
-                  <button onClick={() => toggleWatchLater(item)}>
-                    Remove
-                  </button>
+                  <div className="collection-item-info">
+                    <span className="collection-item-title">
+                      {item.title || item.name}
+                    </span>
+                    <button className="remove-data" onClick={() => toggleWatchLater(item)}>
+                    <img src={trashCan} alt="Remove from Watch Later" />
+                    </button>
+                  </div>
                 </li>
               ))
             ) : (

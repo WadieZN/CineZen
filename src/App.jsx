@@ -10,7 +10,8 @@ import { UserCollectionContext } from "./utils/UserCollectionContext";
 function App() {
   document.title = "CineZen | Home";
 
-  const { favorites, watchLater, toggleFavorite, toggleWatchLater } = useContext(UserCollectionContext);
+  const { favorites, watchLater, toggleFavorite, toggleWatchLater } =
+    useContext(UserCollectionContext);
   const navigate = useNavigate();
 
   const handleSearch = (searchTerm) => {
@@ -32,45 +33,47 @@ function App() {
           endpoint="movie/upcoming"
           favorites={favorites}
           watchLater={watchLater}
-          toggleFavorite={toggleFavorite} 
-          toggleWatchLater={toggleWatchLater} 
+          toggleFavorite={toggleFavorite}
+          toggleWatchLater={toggleWatchLater}
         />
         <DataCards
           title="Popular Movies"
           endpoint="movie/popular"
           favorites={favorites}
           watchLater={watchLater}
-          toggleFavorite={toggleFavorite} 
-          toggleWatchLater={toggleWatchLater} 
+          toggleFavorite={toggleFavorite}
+          toggleWatchLater={toggleWatchLater}
         />
         <DataCards
           title="Popular TV Shows"
           endpoint="tv/popular"
           favorites={favorites}
           watchLater={watchLater}
-          toggleFavorite={toggleFavorite} 
-          toggleWatchLater={toggleWatchLater} 
+          toggleFavorite={toggleFavorite}
+          toggleWatchLater={toggleWatchLater}
         />
         <DataCards
           title="Top Rated Movies"
           endpoint="movie/top_rated"
           favorites={favorites}
           watchLater={watchLater}
-          toggleFavorite={toggleFavorite} 
-          toggleWatchLater={toggleWatchLater} 
+          toggleFavorite={toggleFavorite}
+          toggleWatchLater={toggleWatchLater}
         />
         <DataCards
           title="Top Rated Shows"
           endpoint="tv/top_rated"
           favorites={favorites}
           watchLater={watchLater}
-          toggleFavorite={toggleFavorite} 
-          toggleWatchLater={toggleWatchLater} 
+          toggleFavorite={toggleFavorite}
+          toggleWatchLater={toggleWatchLater}
         />
 
         <UserCollection
           favorites={cleanList(favorites)}
           watchLater={cleanList(watchLater)}
+          toggleFavorite={toggleFavorite}
+          toggleWatchLater={toggleWatchLater}
         />
 
         <footer>

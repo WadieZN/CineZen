@@ -4,7 +4,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 function Hero() {
   return (
-    <div className="hero" aria-hidden>
+    <div className="hero">
       <h1>
         Explore <span>All</span> the Best Shows <span>in One</span> Spot!
       </h1>

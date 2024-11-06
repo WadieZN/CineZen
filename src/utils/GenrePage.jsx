@@ -12,7 +12,8 @@ function GenrePage() {
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
   const [showData, setShowData] = useState(false);
-  const { favorites, watchLater, toggleFavorite, toggleWatchLater } = useContext(UserCollectionContext);
+  const { favorites, watchLater, toggleFavorite, toggleWatchLater } =
+    useContext(UserCollectionContext);
 
   const isMovieGenre = window.location.pathname.includes("/movie");
   const contentType = isMovieGenre ? "Movies" : "TV Series";
@@ -59,7 +60,9 @@ function GenrePage() {
   };
 
   function handleClick(item) {
-    const endpointType = window.location.pathname.includes("/tv") ? "tv" : "movie";
+    const endpointType = window.location.pathname.includes("/tv")
+      ? "tv"
+      : "movie";
     navigate(`/${endpointType}/${item.id}`);
   }
 
@@ -76,6 +79,8 @@ function GenrePage() {
       <UserCollection
         favorites={Object.values(favorites)}
         watchLater={Object.values(watchLater)}
+        toggleFavorite={toggleFavorite}
+        toggleWatchLater={toggleWatchLater}
       />
       <main>
         <h2 className="title">

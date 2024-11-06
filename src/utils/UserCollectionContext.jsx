@@ -22,7 +22,7 @@ export const UserCollectionProvider = ({ children }) => {
     setFavorites((prev) => {
       const updated = { ...prev };
       if (updated[item.id]) {
-        delete updated[item.id];
+        delete updated[item.id]; 
       } else {
         updated[item.id] = item;
       }
@@ -36,19 +36,18 @@ export const UserCollectionProvider = ({ children }) => {
       if (updated[item.id]) {
         delete updated[item.id];
       } else {
-        updated[item.id] = item;
+        updated[item.id] = item; 
       }
       return updated;
     });
   };
-
   const cleanList = (list) => Object.values(list).filter((item) => item);
 
   return (
     <UserCollectionContext.Provider
       value={{
-        favorites: cleanList(favorites),
-        watchLater: cleanList(watchLater),
+        favorites,
+        watchLater,
         toggleFavorite,
         toggleWatchLater,
       }}

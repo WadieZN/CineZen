@@ -5,7 +5,7 @@ import Aside from "../components/Aside";
 import Skeleton from "react-loading-skeleton";
 import NavBar from "../components/NavBar";
 import UserCollection from "../components/UserCollection";
-import { UserCollectionContext } from "./UserCollectionContext"; 
+import { UserCollectionContext } from "./UserCollectionContext";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -14,7 +14,8 @@ function useQuery() {
 function SearchResults() {
   const query = useQuery().get("query");
   const navigate = useNavigate();
-  const { favorites, watchLater, toggleFavorite, toggleWatchLater } = useContext(UserCollectionContext);
+  const { favorites, watchLater, toggleFavorite, toggleWatchLater } =
+    useContext(UserCollectionContext);
 
   const [results, setResults] = useState([]);
   const [isPending, setIsPending] = useState(false);
@@ -56,14 +57,18 @@ function SearchResults() {
     }
   };
 
+  const cleanList = (list) => Object.values(list).filter((item) => item);
+
   return (
     <>
       <NavBar />
       <Aside onSearch={handleSearch} />
       <UserCollection
-        favorites={favorites}
-        watchLater={watchLater}
-      />
+          favorites={cleanList(favorites)}
+          watchLater={cleanList(watchLater)}
+          toggleFavorite={toggleFavorite}
+          toggleWatchLater={toggleWatchLater}
+        />
       <main>
         <h2 className="title">Search Results</h2>
         <div>

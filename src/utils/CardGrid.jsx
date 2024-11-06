@@ -18,11 +18,13 @@ function CardGrid({
   favorites,
   watchLater,
 }) {
-  const [showMore, setShowMore] = useState(null);
+  const [showMore, setShowMore] = useState({});
 
   function handleShowMore(e, itemId) {
     e.stopPropagation();
-    setShowMore(showMore === itemId ? null : itemId);
+    setShowMore((prevShowMore) => ({
+      [itemId]: prevShowMore[itemId] === itemId ? null : itemId,
+    }));
   }
 
   return (
@@ -77,8 +79,7 @@ function CardGrid({
                 >
                   <img src={moreDots} alt="Show more" />
                 </button>
-                {showMore === item.id && (
-                  <div className={`more-options show`}>
+                  <div className={`more-options ${showMore[item.id] ? 'show' : ''}`}>
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
@@ -88,9 +89,8 @@ function CardGrid({
                       <img
                         src={favorites[item.id] ? heartAdded : heartAdd}
                         alt="Favorite"
-                        
                       />
-                      Add to Favorites
+                      Favorite
                     </button>
                     <button
                       onClick={(e) => {
@@ -102,10 +102,9 @@ function CardGrid({
                         src={watchLater[item.id] ? bookmarkAdded : bookmarkAdd}
                         alt="Watch later"
                       />
-                      Add to Watch Later
+                      Watch Later
                     </button>
                   </div>
-                )}
               </div>
             </div>
           ))}
