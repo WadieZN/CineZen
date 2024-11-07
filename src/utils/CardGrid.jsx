@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import moreDots from "../assets/img/more.svg";
@@ -7,6 +7,7 @@ import heartAdded from "../assets/img/heart-added.svg";
 import bookmarkAdd from "../assets/img/bookmark-add.svg";
 import bookmarkAdded from "../assets/img/bookmark-added.svg";
 import noImg from "../assets/img/no-img.jpg";
+import checkMark from "./../assets/img/check.svg";
 
 function CardGrid({
   data,
@@ -20,14 +21,62 @@ function CardGrid({
   count,
 }) {
   const [showMore, setShowMore] = useState({});
+  const [message, setMessage] = useState(null);
+  const optionsRef = useRef(null); 
 
   function handleShowMore(e, itemId) {
     e.stopPropagation();
     setShowMore((prevShowMore) => ({
-      [itemId]: prevShowMore[itemId] === itemId ? null : itemId,
+      ...prevShowMore,
+      [itemId]: prevShowMore[itemId] ? null : itemId,
     }));
   }
-
+  
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        optionsRef.current &&
+        !optionsRef.current.contains(event.target) &&
+        !event.target.classList.contains("show-more-btn")
+      ) {
+        setShowMore({});
+      }
+    }
+  
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+  
+  function showTemporaryMessage(msg) {
+    const toast = document.createElement("div");
+    toast.classList.add("message-toast");
+  
+    const img = document.createElement("img");
+    img.src = checkMark;
+    img.alt = "";
+    toast.appendChild(img);
+  
+    const messageText = document.createTextNode(msg);
+    toast.appendChild(messageText);
+  
+    document.body.appendChild(toast);
+  
+    setTimeout(() => {
+      toast.classList.add("show");
+    }, 0);
+  
+    setTimeout(() => {
+      toast.classList.remove("show");
+  
+      setTimeout(() => {
+        toast.remove();
+      }, 500); 
+    }, 3500);
+  }
+  
+  
   return (
     <div className="dataDisplay">
       {isPending && (
@@ -80,32 +129,45 @@ function CardGrid({
                 >
                   <img src={moreDots} alt="Show more" />
                 </button>
-                  <div className={`more-options ${showMore[item.id] ? 'show' : ''}`}>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleFavorite(item);
-                      }}
-                    >
-                      <img
-                        src={favorites[item.id] ? heartAdded : heartAdd}
-                        alt="Favorite"
-                      />
-                      Favorite
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleWatchLater(item);
-                      }}
-                    >
-                      <img
-                        src={watchLater[item.id] ? bookmarkAdded : bookmarkAdd}
-                        alt="Watch later"
-                      />
-                      Watch Later
-                    </button>
-                  </div>
+                <div
+                  ref={optionsRef}
+                  className={`more-options ${showMore[item.id] ? "show" : ""}`}
+                >
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleFavorite(item);
+                      showTemporaryMessage(
+                        favorites[item.id]
+                          ? "Removed from favorites"
+                          : "Added to favorites"
+                      );
+                    }}
+                  >
+                    <img
+                      src={favorites[item.id] ? heartAdded : heartAdd}
+                      alt="Favorite"
+                    />
+                    Favorite
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleWatchLater(item);
+                      showTemporaryMessage(
+                        watchLater[item.id]
+                          ? "Removed from watch later"
+                          : "Added to watch later"
+                      );
+                    }}
+                  >
+                    <img
+                      src={watchLater[item.id] ? bookmarkAdded : bookmarkAdd}
+                      alt="Watch later"
+                    />
+                    Watch Later
+                  </button>
+                </div>
               </div>
             </div>
           ))}

@@ -238,9 +238,11 @@ input {
 
 .aside-open {
     left: 0;
+    z-index: 99;
 
     .aside-top {
         left: 0;
+        z-index: 99;
 
         .logo {
             visibility: hidden;
@@ -526,6 +528,7 @@ nav {
     border-radius: 50%;
     transition: 150ms;
     padding: 3px;
+    z-index: 1;
 
     &:hover{
         transform: scale(1.15);
@@ -622,21 +625,33 @@ nav {
         }
     }
 
+    #home{
+        .data-container {
+            @include fs(10px);
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            width: 100%;
+            scrollbar-width: none;
+            &::-webkit-scrollbar{
+                display: none;
+            }
+            .data-wrapper{
+                min-width: 200px;
+                .data{
+                    min-width: 200px;
+                }
+            }
+        }
+    }
+
     .show-more-btn {
         opacity: 1;
     }
 }
 
 @media screen and (max-width: 485px) {
-    .data-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-
-@media screen and (max-width: 360px) {
-    .data-container {
-        @include fcc(5px);
+    .data-container{
+        grid-template-columns: 1fr 1fr
     }
 }
 
@@ -645,6 +660,7 @@ nav {
     overflow: hidden;
     @include fcs(15px);
     width: 100%;
+    min-height: 100vh;
     padding: 25px;
 
     .buttons{
@@ -947,6 +963,21 @@ nav {
     }
 }
 
+@media screen and (max-width: 485px) {
+    .skeleton-container{
+        flex-wrap: nowrap;
+        overflow: auto;
+        scrollbar-width: none;
+        &::-webkit-scrollbar{
+            display: none;
+        }
+        .skeleton-wrapper{
+            min-width: 200px;
+            min-height: 330px;
+        }
+    }
+}
+
 .title {
     font-size: 2.5rem;
     color: $primary-color;
@@ -1187,3 +1218,26 @@ footer {
         margin-top: 75px;
     }
 }
+
+.message-toast {
+    @include fc(5px);
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: $primary-color;
+    color: #000;
+    padding: 10px 25px;
+    border-radius: 10px;
+    opacity: 0;
+    font-size: 1rem;
+    text-wrap: nowrap;
+    z-index: 999;
+    transition: 500ms;
+  }
+
+  .message-toast.show {
+    opacity: 0.9;
+    transform: translateX(-50%) translateY(-10px); 
+  }
+  

@@ -10,6 +10,7 @@ import heartAdd from "../assets/img/heart-add.svg";
 import heartAdded from "../assets/img/heart-added.svg";
 import bookmarkAdd from "../assets/img/bookmark-add.svg";
 import bookmarkAdded from "../assets/img/bookmark-added.svg";
+import checkMark from "./../assets/img/check.svg";
 
 function DataDisplay() {
   const { id, endpoint } = useParams();
@@ -21,6 +22,7 @@ function DataDisplay() {
   const [loadingCast, setLoadingCast] = useState(true);
   const [loadingTrailer, setLoadingTrailer] = useState(true);
   const [showData, setShowData] = useState(false);
+  const [message, setMessage] = useState(null);
   const apiKey = "9243098c7038ad501a3bbff3589770d7";
   const { favorites, watchLater, toggleFavorite, toggleWatchLater } =
     useContext(UserCollectionContext);
@@ -80,7 +82,38 @@ function DataDisplay() {
     }
   };
 
+  function showTemporaryMessage(msg) {
+    const toast = document.createElement("div");
+    toast.classList.add("message-toast");
+  
+    const img = document.createElement("img");
+    img.src = checkMark;
+    img.alt = "";
+    toast.appendChild(img);
+  
+    const messageText = document.createTextNode(msg);
+    toast.appendChild(messageText);
+  
+    document.body.appendChild(toast);
+  
+    setTimeout(() => {
+      toast.classList.add("show");
+    }, 0);
+  
+    setTimeout(() => {
+      toast.classList.remove("show");
+  
+      setTimeout(() => {
+        toast.remove();
+      }, 500); 
+    }, 3500);
+  }
+  
+
   const cleanList = (list) => Object.values(list).filter((item) => item);
+
+  const isFavorite = favorites[id];
+  const isWatchLater = watchLater[id];
 
   return (
     <>
@@ -159,17 +192,35 @@ function DataDisplay() {
             </div>
 
             <div className="data-overview">
-            <div className="buttons">
-                <button>
+              <div className="buttons">
+                <button
+                  onClick={() => {
+                    toggleFavorite(data);
+                    showTemporaryMessage(
+                      favorites[data.id]
+                        ? "Removed from favorites"
+                        : "Added to favorites"
+                    );
+                  }}
+                >
                   <img
-                    src={heartAdded}
+                    src={isFavorite ? heartAdded : heartAdd}
                     alt="Favorite"
                   />
                   Favorite
                 </button>
-                <button>
+                <button
+                  onClick={() => {
+                    toggleWatchLater(data);
+                    showTemporaryMessage(
+                      watchLater[data.id]
+                        ? "Removed from watch later"
+                        : "Added to watch later"
+                    );
+                  }}
+                >
                   <img
-                    src={bookmarkAdded}
+                    src={isWatchLater ? bookmarkAdded : bookmarkAdd}
                     alt="Watch later"
                   />
                   Watch Later
@@ -193,7 +244,9 @@ function DataDisplay() {
                   />
                 </div>
               ) : (
-                <p>{data.overview ? data.overview : "No overview for this show."}</p>
+                <p>
+                  {data.overview ? data.overview : "No overview for this show."}
+                </p>
               )}
 
               <h2 className="subtitle">Release Date</h2>

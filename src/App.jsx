@@ -26,7 +26,7 @@ function App() {
     <>
       <NavBar />
       <Aside onSearch={handleSearch} />
-      <main>
+      <main id="home">
         <Hero />
         <DataCards
           title="Upcoming"
