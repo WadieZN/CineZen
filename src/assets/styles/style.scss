@@ -657,11 +657,11 @@ nav {
 
 .data-page {
     position: relative;
-    overflow: hidden;
     @include fcs(15px);
     width: 100%;
     min-height: 100vh;
     padding: 25px;
+    overflow: hidden;
 
     .buttons{
         @include fc(15px);
@@ -845,10 +845,17 @@ nav {
     width: 100%;
 
     .cast-list {
-        @include fs(15px);
-        flex-wrap: wrap;
+        @include fs(10px);
+        flex-wrap: nowrap;
+        overflow-x: auto;
         width: 100%;
-        margin-top: 5px;
+        max-width: 100vw; 
+        -webkit-overflow-scrolling: touch; 
+        padding-right: 35px;
+        scrollbar-width: none;
+        &::-webkit-scrollbar{
+            display: none;
+        }
 
         .actor-wrapper {
             position: relative;
@@ -856,16 +863,16 @@ nav {
             padding: 5px;
             border-radius: 10px;
             cursor: pointer;
-            width: 160px;
-            height: 300px;
+            min-width: 170px;
+            height: 330px;
 
             .actor {
                 @include fcsb(0);
                 background: #333;
                 border-radius: 10px;
                 overflow: hidden;
-                width: 150px;
-                height: 290px;
+                min-width: 170px;
+                height: 320px;
 
                 &::before {
                     content: "";
@@ -891,7 +898,7 @@ nav {
                 }
 
                 img {
-                    width: 150px;
+                    width: 170px;
                 }
 
                 h3 {
@@ -920,35 +927,19 @@ nav {
     }
 }
 
-@media screen and (max-width: 680px) {
-    .cast-container {
-        .cast-list {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            align-items: center;
-            gap: 5px;
-
-            .actor-wrapper {
-                width: 100%;
-                height: auto;
-
-                .actor {
-                    width: 100%;
-                    height: auto;
-
-                    &::before {
-                        display: none;
-                    }
-
-                    img {
-                        width: 100%;
-                        height: auto;
+@media screen and (max-width: 768px) {
+        .cast-container {
+            .cast-list {
+                .actor-wrapper {
+                    .actor {
+                        &::before {
+                            display: none;
+                        }
                     }
                 }
             }
         }
     }
-}
 
 .skeleton-container {
     @include fs(10px);
@@ -963,9 +954,9 @@ nav {
     }
 }
 
-@media screen and (max-width: 485px) {
+@media screen and (max-width: 768px) {
     .skeleton-container{
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         overflow: auto;
         scrollbar-width: none;
         &::-webkit-scrollbar{
@@ -974,6 +965,21 @@ nav {
         .skeleton-wrapper{
             min-width: 200px;
             min-height: 330px;
+        }
+    }
+
+    #home{
+        .skeleton-container{
+            flex-wrap: nowrap;
+            overflow: auto;
+            scrollbar-width: none;
+            &::-webkit-scrollbar{
+                display: none;
+            }
+            .skeleton-wrapper{
+                min-width: 200px;
+                min-height: 330px;
+            }
         }
     }
 }
@@ -1222,7 +1228,7 @@ footer {
 .message-toast {
     @include fc(5px);
     position: fixed;
-    bottom: 20px;
+    bottom: 5px;
     left: 50%;
     transform: translateX(-50%);
     background: $primary-color;
@@ -1230,14 +1236,18 @@ footer {
     padding: 10px 25px;
     border-radius: 10px;
     opacity: 0;
-    font-size: 1rem;
+    font-size: 1.1rem;
     text-wrap: nowrap;
     z-index: 999;
     transition: 500ms;
+    img{
+        width: 25px;
+        height: 25px;
+    }
   }
 
   .message-toast.show {
     opacity: 0.9;
-    transform: translateX(-50%) translateY(-10px); 
+    bottom: 30px;
   }
   

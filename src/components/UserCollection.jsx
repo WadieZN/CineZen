@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import arrow from "./../assets/img/arrow.svg";
 import trashCan from "./../assets/img/trash.svg";
 import noImg from "./../assets/img/no-img.jpg";
@@ -13,21 +13,34 @@ function UserCollection({
   const [activeList, setActiveList] = useState("favorites");
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const collectionRef = useRef(null);
 
   const handleClick = () => {
     setOpen((prevState) => !prevState);
   };
 
-  function handleCardClick(item) {
+  const handleCardClick = (item) => {
     if (item && item.media_type && item.id) {
       navigate(`/${item.media_type === "tv" ? "tv" : "movie"}/${item.id}`);
     } else {
       console.warn("Invalid item data:", item);
     }
-  }
+  };
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (collectionRef.current && !collectionRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
-    <div className={`user-collection ${open ? "open" : ""}`}>
+    <div className={`user-collection ${open ? "open" : ""}`} ref={collectionRef}>
       <button
         className={`toggle-collection ${open ? "open" : ""}`}
         onClick={handleClick}
@@ -57,7 +70,7 @@ function UserCollection({
                 <li
                   key={item.id || `${item.title}-${index}`}
                   className="collection-item"
-                  onClick={handleCardClick}
+                  onClick={() => handleCardClick(item)}
                 >
                   <img
                     src={
@@ -74,7 +87,7 @@ function UserCollection({
                     </span>
                     <button className="remove-data" onClick={() => toggleFavorite(item)}>
                       <img src={trashCan} alt="Remove from Favorites" />
-                      </button>
+                    </button>
                   </div>
                 </li>
               ))
@@ -91,7 +104,7 @@ function UserCollection({
                 <li
                   key={item.id || `${item.title}-${index}`}
                   className="collection-item"
-                  onClick={handleCardClick}
+                  onClick={() => handleCardClick(item)}
                 >
                   <img
                     src={`https://image.tmdb.org/t/p/w200${item.poster_path}`}
@@ -103,7 +116,7 @@ function UserCollection({
                       {item.title || item.name}
                     </span>
                     <button className="remove-data" onClick={() => toggleWatchLater(item)}>
-                    <img src={trashCan} alt="Remove from Watch Later" />
+                      <img src={trashCan} alt="Remove from Watch Later" />
                     </button>
                   </div>
                 </li>

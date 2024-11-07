@@ -1,7 +1,14 @@
-# MoviesWorld 
+# CineZen | Movies & TV Series Explorer 
 
-link: https://wadyzen-movies-world.netlify.app/
+**Explore** your favorite movies, tv shows, anime and actors online without the need to sign up, all free.
 
-A project to explore different movies, tv shows and actors.
+Made with: 
+<ul>
+    <li>React</li>
+    <li>SCSS</li>
+    <li>Tmdb API</li>
+    <li>Vite</li>
+    <li>Some libraries</li>
+</ul>
 
-Started on Oct 21, still in development.
+link: https://cine-zen.netlify.app/
