@@ -516,7 +516,8 @@ nav {
     }
 }
 
-.show-more-btn {
+.show-more-btn,
+.close-more-btn {
     opacity: 0;
     @include fc(0);
     width: 30px;
@@ -846,7 +847,7 @@ nav {
 
     .cast-list {
         @include fs(10px);
-        flex-wrap: nowrap;
+        flex-wrap: wrap;
         overflow-x: auto;
         width: 100%;
         max-width: 100vw; 
@@ -863,16 +864,17 @@ nav {
             padding: 5px;
             border-radius: 10px;
             cursor: pointer;
-            min-width: 170px;
+            width: 170px;
             height: 330px;
 
             .actor {
-                @include fcsb(0);
+                @include fcs(10px);
+                text-align: start;
                 background: #333;
                 border-radius: 10px;
                 overflow: hidden;
-                min-width: 170px;
-                height: 320px;
+                width: 170px;
+                height: 330px;
 
                 &::before {
                     content: "";
@@ -899,17 +901,18 @@ nav {
 
                 img {
                     width: 170px;
+                    height: 260px;
                 }
 
                 h3 {
                     color: $primary-color;
                     font-weight: 400;
                     font-size: 1.1rem;
-                    padding: 5px 5px 0 5px;
                     text-overflow: ellipsis;
                     text-wrap: nowrap;
                     width: 100%;
                     overflow: hidden;
+                    padding: 0 5px;
                 }
 
                 h4 {
@@ -920,7 +923,7 @@ nav {
                     overflow: hidden;
                     font-size: 1rem;
                     font-weight: 400;
-                    padding: 5px 5px 10px 5px;
+                    padding: 0 5px 5px 5px;
                 }
             }
         }
@@ -930,6 +933,7 @@ nav {
 @media screen and (max-width: 768px) {
         .cast-container {
             .cast-list {
+                flex-wrap: nowrap;
                 .actor-wrapper {
                     .actor {
                         &::before {

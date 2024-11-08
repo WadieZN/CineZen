@@ -21,62 +21,59 @@ function CardGrid({
   count,
 }) {
   const [showMore, setShowMore] = useState({});
-  const [message, setMessage] = useState(null);
-  const optionsRef = useRef(null); 
+  const optionsRef = useRef(null);
 
   function handleShowMore(e, itemId) {
     e.stopPropagation();
     setShowMore((prevShowMore) => ({
       ...prevShowMore,
-      [itemId]: prevShowMore[itemId] ? null : itemId,
+      [itemId]: prevShowMore[itemId] === itemId ? null : itemId,
     }));
   }
-  
+
   useEffect(() => {
     function handleClickOutside(event) {
       if (
         optionsRef.current &&
-        !optionsRef.current.contains(event.target) &&
-        !event.target.classList.contains("show-more-btn")
+        !optionsRef.current.contains(event.target)
       ) {
         setShowMore({});
       }
     }
-  
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  
+
   function showTemporaryMessage(msg) {
     const toast = document.createElement("div");
     toast.classList.add("message-toast");
-  
+
     const img = document.createElement("img");
     img.src = checkMark;
     img.alt = "";
     toast.appendChild(img);
-  
+
     const messageText = document.createTextNode(msg);
     toast.appendChild(messageText);
-  
+
     document.body.appendChild(toast);
-  
+
     setTimeout(() => {
       toast.classList.add("show");
     }, 0);
-  
+
     setTimeout(() => {
       toast.classList.remove("show");
-  
+
       setTimeout(() => {
         toast.remove();
-      }, 500); 
+      }, 500);
     }, 3500);
   }
-  
-  
+
   return (
     <div className="dataDisplay">
       {isPending && (
@@ -117,18 +114,23 @@ function CardGrid({
                 <img
                   src={
                     item.poster_path
-                      ? `https://image.tmdb.org/t/p/w400${item.poster_path}`
+                      ? `https://image.tmdb.org/t/p/w300${item.poster_path}`
                       : noImg
                   }
                   alt={`${item.title || item.name} poster`}
                 />
                 <h3>{item.title || item.name}</h3>
+
                 <button
                   className="show-more-btn"
                   onClick={(e) => handleShowMore(e, item.id)}
                 >
-                  <img src={moreDots} alt="Show more" />
+                  <img
+                    src={moreDots}
+                    alt={showMore[item.id] ? "Close" : "Show more"}
+                  />
                 </button>
+
                 <div
                   ref={optionsRef}
                   className={`more-options ${showMore[item.id] ? "show" : ""}`}
