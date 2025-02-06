@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import arrow from "./../assets/img/arrow.svg";
 import trashCan from "./../assets/img/trash.svg";
 import noImg from "./../assets/img/no-img.jpg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function UserCollection({
   favorites,
@@ -67,7 +67,7 @@ function UserCollection({
           <ul className="collection-grid">
             {favorites.length > 0 ? (
               favorites.map((item, index) => (
-                <li
+                <Link to={`/${endpoint.includes("tv") ? "tv" : "movie"}/${item.id}`}
                   key={item.id || `${item.title}-${index}`}
                   className="collection-item"
                   onClick={() => handleCardClick(item)}
@@ -89,7 +89,7 @@ function UserCollection({
                       <img src={trashCan} alt="Remove from Favorites" />
                     </button>
                   </div>
-                </li>
+                </Link>
               ))
             ) : (
               <p>No items in favorites yet.</p>
